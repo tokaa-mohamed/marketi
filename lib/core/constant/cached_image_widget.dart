@@ -81,10 +81,10 @@ class CachedImageWidget extends StatelessWidget {
         borderRadius: borderRadius,
       ),
       child: Center(
-        child: CustomLogo(
-          width: (width ?? 100) * 0.8,
-          height: (height ?? 100) * 0.8,
-        ),
+        // child: CustomLogo(
+        //   width: (width ?? 100) * 0.8,
+        //   height: (height ?? 100) * 0.8,
+        // ),
       ),
     );
   }

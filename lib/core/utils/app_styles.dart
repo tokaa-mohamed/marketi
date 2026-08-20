@@ -14,7 +14,25 @@ TextStyle _getTextStyle(
     fontWeight: fontWeight,
     height: height,
     decoration: decoration,
-    fontFamily: AppFonts.questFont,
+    fontFamily: AppFonts.poppins,
+  );
+}
+
+TextStyle _getArabicTextStyle(
+  double fontSize,
+  FontWeight fontWeight,
+  Color? color,
+  double? height,
+  TextDecoration? decoration,
+
+) {
+  return TextStyle(
+    fontSize: fontSize,
+    color: color,
+    fontWeight: fontWeight,
+    height: height,
+    decoration: decoration,
+    fontFamily: AppFonts.tajawal,
   );
 }
 

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
+import '../utils/app_fonts.dart';
+import 'app_constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -36,46 +38,51 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: isLoading ? null : onTap,
-      borderRadius: BorderRadius.circular((borderRadius ?? 10).r),
-      child: Container(
-        height: height ?? 60.h,
-        width: width,
-        decoration: BoxDecoration(
-          color: color ?? AppColors.primaryColor,
-          border: Border.all(
-            color: bordercolor ?? AppColors.primaryColor,
-            width: 1.2,
-          ),
-          borderRadius: BorderRadius.circular((borderRadius ?? 10).r),
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: isLoading ? null : onTap,
+        borderRadius: BorderRadius.circular(
+          (borderRadius ?? AppConstants.defaultRadius).r,
         ),
-        child: Center(
-          child: ConditionalBuilder(
-            condition: !isLoading,
-            builder: (context) => Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (icon != null) ...[icon!, SizedBox(width: 8.w)],
-
-                Text(
-                  data ?? "",
-                  style: getBoldStyle(
-                    fontSize: fontSize ?? 24,
-                    color: txtcolor ?? AppColors.white,
-                  ),
-                ),
-
-                if (icon2 != null) ...[SizedBox(width: 8.w), icon2!],
-              ],
+        child: Container(
+          height: height ?? AppConstants.defaultButtonHeight.h,
+          width: width ?? double.infinity,
+          decoration: BoxDecoration(
+            color: color ?? AppColors.primaryColor,
+            border: bordercolor != null
+                ? Border.all(color: bordercolor!, width: 1.2)
+                : null,
+            borderRadius: BorderRadius.circular(
+              (borderRadius ?? AppConstants.defaultRadius).r,
             ),
-            fallback: (context) => SizedBox(
-              height: 20.h,
-              width: 20.h,
-              child: CircularProgressIndicator(
-                color: txtcolor ?? Colors.white,
-                strokeWidth: 2,
+          ),
+          child: Center(
+            child: ConditionalBuilder(
+              condition: !isLoading,
+              builder: (context) => Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (icon != null) ...[icon!, SizedBox(width: 8.w)],
+                  Text(
+                    data ?? "",
+                    style: getBoldStyle(
+                      fontSize: fontSize ?? AppFonts.s16.sp,
+                      color: txtcolor ?? AppColors.white,
+                    ),
+                  ),
+                  if (icon2 != null) ...[SizedBox(width: 8.w), icon2!],
+                ],
+              ),
+              fallback: (context) => SizedBox(
+                height: 20.h,
+                width: 20.h,
+                child: CircularProgressIndicator(
+                  color: txtcolor ?? Colors.white,
+                  strokeWidth: 2,
+                ),
               ),
             ),
           ),

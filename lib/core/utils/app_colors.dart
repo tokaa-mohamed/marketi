@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primaryColor = Color(0xFF0000FF);
-  static const Color secondaryColor = Color(0xFF0F1942);
-  static const Color blue = Color(0xFF00E6FF);
-  static const Color blue2 = Color(0xFF0053BC);
-  static const Color green = Color(0xFF008D36);
-  static const Color yello = Color(0xFFFAE700);
-  static const Color pink = Color(0xFFFF4596);
+  // Brand Colors from Figma
+  static const Color primaryColor = Color(0xFF3F80FF);
+  static const Color secondaryColor = Color(0xFF51526C);
+  static const Color errorColor = Color(0xFFBF0011);
 
-  static const Color darkColor = Color(0xFF313131);
-  static const Color lightGrayColor = Color(0xFFFAFAFA);
+  // Core Palette
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
-  static const Color bordergrey = Color(0xFF777777);
   static const Color grey = Color(0xFFB8B8B8);
-  static const Color grey2 = Color(0xFF939AAD);
-  static const Color greychip = Color(0xFFEFEFF0);
+  static const Color lightGrayColor = Color(0xFFFAFAFA);
+  static const Color darkColor = Color(0xFF313131);
+  static const Color borderColor = Color(0xFFE0E0E0);
 
-  static const Color errorColor = Color(0xFFDC3545);
+  // Status Colors
   static const Color successColor = Color(0xFF28A745);
   static const Color warningColor = Color(0xFFFFC107);
   static const Color infoColor = Color(0xFF17A2B8);
@@ -29,7 +25,6 @@ class AppColors {
   static const Color textOnPrimaryColor = white;
   static const Color textOnSecondaryColor = darkColor;
 
-  static const Color borderColor = lightGrayColor;
   static const Color dividerColor = lightGrayColor;
   static const Color cardBorderColor = lightGrayColor;
 
@@ -37,7 +32,7 @@ class AppColors {
   static const Color primaryShadowColor = Color(0x4DC67C4E);
 
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [primaryColor, Color(0xffFFFFFF)],
+    colors: [primaryColor, white],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -67,12 +62,6 @@ class AppColors {
   static const Color darkBorderColor = Color(0xFF404040);
   static const Color darkTextPrimaryColor = Color(0xFFFFFFFF);
   static const Color darkTextSecondaryColor = Color(0xFFB0B0B0);
-
-  static const LinearGradient blueGradient = LinearGradient(
-    colors: [blue, blue2],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
 
   static Color getAdaptiveBorderColor(BuildContext context) {
     return borderColor;

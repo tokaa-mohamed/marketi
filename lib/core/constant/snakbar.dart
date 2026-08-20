@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icon_snackbar/flutter_icon_snackbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sayara/core/utils/app_colors.dart';
-import 'package:sayara/core/utils/app_styles.dart';
+import '../utils/app_colors.dart';
+import '../utils/app_styles.dart';
 
 class CustomSnackbar {
   final Color backgroundColor;
