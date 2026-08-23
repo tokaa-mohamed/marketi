@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/core/constant/custom_svg_image.dart'; // تأكدي من ضبط مسار استيراد CustomSvgImage
 
 import '../utils/app_colors.dart';
 import '../utils/app_fonts.dart';
@@ -13,7 +14,9 @@ class CustomTextformfeild extends StatefulWidget {
     required this.validator,
     required this.formFieldKey,
     this.borderRadius,
+    this.borderColor,
     this.hintText,
+    this.hintColor,
     this.labelText,
     this.labelcolor,
     this.isPassword = false,
@@ -29,12 +32,14 @@ class CustomTextformfeild extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final String? hintText;
+  final Color? hintColor;
+  final Color? borderColor;
   final String? labelText;
   final String? Function(String?)? validator;
   final Key? formFieldKey;
   final bool isPassword;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
+  final dynamic prefixIcon; // يقبل Widget أو String (SVG Path)
+  final dynamic suffixIcon; // يقبل Widget أو String (SVG Path)
   final String? prefixText;
   final bool isPhoneField;
   final Color? labelcolor;
@@ -48,6 +53,22 @@ class CustomTextformfeild extends StatefulWidget {
 
 class _CustomTextformfeildState extends State<CustomTextformfeild> {
   bool _obscureText = true;
+
+  // دالة مساعدة لمعالجة إما SVG Path أو Widget عادي
+  Widget? _buildIcon(dynamic icon, {Color? color}) {
+    if (icon == null) return null;
+    if (icon is String) {
+      return CustomSvgImage(
+        path: icon,
+        width: 20.w,
+        height: 20.h,
+        color: color,
+      );
+    } else if (icon is Widget) {
+      return icon;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +94,9 @@ class _CustomTextformfeildState extends State<CustomTextformfeild> {
   }
 
   Widget _buildTextField(bool isRTL) {
+    final defaultBorderColor = widget.borderColor ?? const Color(0xFFE0E0E0);
+    final prefixWidget = _buildIcon(widget.prefixIcon);
+
     return TextFormField(
       key: widget.formFieldKey,
       validator: widget.validator,
@@ -86,7 +110,6 @@ class _CustomTextformfeildState extends State<CustomTextformfeild> {
       style: getRegularStyle(
         fontSize: AppFonts.s14.sp,
         color: AppColors.textPrimaryColor,
-
       ),
       keyboardType: widget.keyboardType,
       decoration: InputDecoration(
@@ -94,10 +117,10 @@ class _CustomTextformfeildState extends State<CustomTextformfeild> {
         hintText: widget.hintText,
         hintStyle: getRegularStyle(
           fontSize: AppFonts.s14.sp,
-          color: AppColors.textLightColor,
+          color: widget.hintColor ?? AppColors.textLightColor,
         ),
         filled: true,
-        fillColor: Colors.transparent, // Figma shows white/transparent with border
+        fillColor: Colors.transparent,
         contentPadding: EdgeInsets.symmetric(
           horizontal: 16.w,
           vertical: 12.h,
@@ -111,20 +134,20 @@ class _CustomTextformfeildState extends State<CustomTextformfeild> {
           borderRadius: BorderRadius.circular(
             (widget.borderRadius ?? AppConstants.defaultRadius).r,
           ),
-          borderSide: const BorderSide(color: Color(0xFFE0E0E0), width: 1),
+          borderSide: BorderSide(color: defaultBorderColor, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             (widget.borderRadius ?? AppConstants.defaultRadius).r,
           ),
-          borderSide: const BorderSide(color: Color(0xFFE0E0E0), width: 1),
+          borderSide: BorderSide(color: defaultBorderColor, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             (widget.borderRadius ?? AppConstants.defaultRadius).r,
           ),
-          borderSide: const BorderSide(
-            color: AppColors.primaryColor,
+          borderSide: BorderSide(
+            color: widget.borderColor ?? AppColors.primaryColor,
             width: 1.5,
           ),
         ),
@@ -134,11 +157,11 @@ class _CustomTextformfeildState extends State<CustomTextformfeild> {
           ),
           borderSide: const BorderSide(color: AppColors.errorColor, width: 1.5),
         ),
-        prefixIcon: widget.prefixIcon != null
+        prefixIcon: prefixWidget != null
             ? UnconstrainedBox(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
-                  child: widget.prefixIcon,
+                  child: prefixWidget,
                 ),
               )
             : null,
@@ -155,7 +178,7 @@ class _CustomTextformfeildState extends State<CustomTextformfeild> {
                   });
                 },
               )
-            : widget.suffixIcon,
+            : _buildIcon(widget.suffixIcon),
       ),
     );
   }

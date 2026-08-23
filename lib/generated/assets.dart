@@ -31,7 +31,7 @@ class $AssetsImagesGen {
   final SvgGenImage logInValidation = const SvgGenImage(
     'assets/images/Log_In_Validation.svg',
   );
-  final SvgGenImage logo = const SvgGenImage('assets/images/Logo.svg');
+  final SvgGenImage logo = const SvgGenImage('assets/images/Logo_Sign_Up.png');
   final SvgGenImage onboarding1 = const SvgGenImage(
     'assets/images/Onboarding_1.svg',
   );

@@ -21,6 +21,7 @@ class CustomButton extends StatelessWidget {
     this.icon,
     this.icon2,
     this.borderRadius,
+    this.fontweight,
   });
 
   final void Function()? onTap;
@@ -33,6 +34,7 @@ class CustomButton extends StatelessWidget {
   final Color? bordercolor;
   final bool isLoading;
   final Widget? icon;
+  final FontWeight? fontweight;
   final Widget? icon2;
   final double? borderRadius;
 
