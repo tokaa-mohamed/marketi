@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Brand Colors from Figma
   static const Color primaryColor = Color(0xFF3F80FF);
-  static const Color secondaryColor = Color(0xFF51526C);
+  static const Color secondaryColor = Color(0xFF001640);
   static const Color errorColor = Color(0xFFBF0011);
 
   // Core Palette
@@ -11,6 +11,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color grey = Color(0xFFB8B8B8);
   static const Color lightGrayColor = Color(0xFFFAFAFA);
+  static const Color greychip = Color(0xFFEFEFF0);
   static const Color darkColor = Color(0xFF313131);
   static const Color borderColor = Color(0xFFE0E0E0);
 

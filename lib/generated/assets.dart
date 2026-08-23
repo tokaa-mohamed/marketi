@@ -156,6 +156,10 @@ class $AssetsIconsGen {
   final SvgGenImage sideMenuIcon = const SvgGenImage(
     'assets/icons/Side_Menu_Icon.svg',
   );
+  final SvgGenImage menuIcon = const SvgGenImage(
+    'assets/icons/Menu_Icon.svg',
+  );
+  final SvgGenImage homeIcon = const SvgGenImage('assets/icons/Home_Icon.svg');
   final SvgGenImage starIcon = const SvgGenImage('assets/icons/Star_Icon.svg');
   final SvgGenImage timeIcon = const SvgGenImage('assets/icons/Time_Icon.svg');
   final SvgGenImage trashIcon = const SvgGenImage(

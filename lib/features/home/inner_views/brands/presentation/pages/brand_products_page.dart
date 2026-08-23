@@ -1,0 +1,69 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import '../../../../../../core/di.dart';
+import '../../../../../../core/utils/app_colors.dart';
+import '../../../../../../core/utils/app_fonts.dart';
+import '../../../../../../core/utils/app_styles.dart';
+import '../../../../domain/entities/products_dummy_data.dart';
+import '../../../../presentation/widgets/products_grid_body.dart';
+import '../../domain/entities/brand_entity.dart';
+import '../cubit/brands_cubit.dart';
+import '../cubit/brands_state.dart';
+
+@RoutePage()
+class BrandProductsPage extends StatelessWidget {
+  final BrandEntity brand;
+
+  const BrandProductsPage({super.key, required this.brand});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<BrandsCubit>()..getBrandProducts(brand.id),
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 0,
+          leading: Padding(
+            padding: EdgeInsets.all(8.r),
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.borderColor),
+                ),
+                child: Icon(Icons.arrow_back_ios_new, size: 18.sp, color: AppColors.secondaryColor),
+              ),
+            ),
+          ),
+          title: Text(
+            brand.name,
+            style: getBoldStyle(fontSize: AppFonts.s18.sp, color: AppColors.secondaryColor),
+          ),
+          centerTitle: true,
+        ),
+        body: BlocBuilder<BrandsCubit, BrandsState>(
+          builder: (context, state) {
+            if (state is BrandProductsLoading || state is BrandProductsSuccess) {
+              final products = state is BrandProductsSuccess 
+                  ? state.products 
+                  : ProductsDummyData.products;
+              return Skeletonizer(
+                enabled: state is BrandProductsLoading,
+                child: ProductsGridBody(products: products),
+              );
+            } else if (state is BrandProductsError) {
+              return Center(child: Text(state.message));
+            }
+            return const SizedBox();
+          },
+        ),
+      ),
+    );
+  }
+}

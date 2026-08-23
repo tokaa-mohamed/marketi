@@ -1,36 +1,50 @@
 class AppConstants {
   // API Configuration
-  static const String KhamnyBaseUrl = 'https://washing-cars.storage-te.com';
+  static const String baseUrl = 'https://marketi.newcinderella.online/api/v1';
+  static const String storageUrl = 'https://marketi.newcinderella.online/storage/';
 
   // Auth Endpoints
-  static const String registerEndpoint = '/api/auth/register';
-  static const String loginEndpoint = '/api/auth/login';
-  static const String sendResetPasswordOtpEndpoint =
-      '/api/auth/send-restpassword-otp';
-  static const String verifyResetPasswordOtpEndpoint =
-      '/api/auth/verify-restpassword-otp';
-  static const String changePasswordEndpoint =
-      '/api/auth/change-password-with-restpassword-otp';
+  static const String registerEndpoint = '/register';
+  static const String loginEndpoint = '/login';
+  static const String forgotPasswordEndpoint = '/forgot-password';
+  static const String verifyOtpEndpoint = '/verify-otp';
+  static const String resetPasswordEndpoint = '/reset-password';
+  static const String meEndpoint = '/me';
+  static const String logoutEndpoint = '/logout';
 
-  // Dynamic Endpoints
-  static const String citiesEndpoint = '/api/dynamic/cities';
+  // Home & Catalog Endpoints
+  static const String homeEndpoint = '/home';
+  static const String searchEndpoint = '/search';
+  static const String categoriesEndpoint = '/categories';
+  static String categoryProductsEndpoint(int id) => '/categories/$id/products';
+  static const String brandsEndpoint = '/brands';
+  static const String productsEndpoint = '/products';
+  static String productDetailsEndpoint(int id) => '/products/$id';
+  static String productRatingsEndpoint(int id) => '/products/$id/ratings';
 
-  // Address Endpoints
-  static const String addressesEndpoint = '/api/addresses';
-  static String setDefaultAddressEndpoint(int id) =>
-      '/api/addresses/$id/set-default';
+  // Cart & Checkout Endpoints
+  static const String cartEndpoint = '/cart';
+  static const String cartItemsEndpoint = '/cart/items';
+  static String updateCartItemEndpoint(int id) => '/cart/items/$id';
+  static const String ordersEndpoint = '/orders';
+  static String orderDetailsEndpoint(int id) => '/orders/$id';
+  static String cancelOrderEndpoint(int id) => '/orders/$id/cancel';
+  static String retryPaymentEndpoint(int id) => '/orders/$id/payment/retry';
 
-  // Cars Endpoints
-  static const String carsEndpoint = '/api/cars';
-  static String setDefaultCarEndpoint(int id) => '/api/cars/$id/set-default';
-  static const String brandsEndpoint = '/api/brands';
-  static const String carTypesEndpoint = '/api/types';
+  // Profile & Favorites Endpoints
+  static const String profileEndpoint = '/profile';
+  static const String changePasswordEndpoint = '/profile/password';
+  static const String favoritesEndpoint = '/favorites';
 
-  // User Endpoints
-  static const String resendOtpEndpoint = '/api/user/resend-otp';
-  static const String verifyOtpEndpoint = '/api/user/verify-otp';
-  static const String refreshTokenEndpoint = '/api/user/refresh';
+  // Support & Others
+  static const String subscriptionPlansEndpoint = '/subscription-plans';
+  static const String mySubscriptionsEndpoint = '/subscriptions';
+  static const String supportTicketsEndpoint = '/support/tickets';
+  static const String notificationsEndpoint = '/notifications';
+  static const String faqsEndpoint = '/faqs';
+  static const String deliverySlotsEndpoint = '/delivery-slots';
 
+  // Language Constants
   static const String arabicLangCode = 'ar';
   static const String englishLangCode = 'en';
 
@@ -39,7 +53,6 @@ class AppConstants {
   // Design System Constants
   static const double defaultRadius = 14.0;
   static const double defaultButtonHeight = 48.0;
-
 
   // Error Messages
   static const String networkErrorMessage = 'خطأ في الشبكة';
