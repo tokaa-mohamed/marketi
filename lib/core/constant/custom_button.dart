@@ -7,27 +7,28 @@ import '../utils/app_fonts.dart';
 import 'app_constants.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({
-    super.key,
-    this.onTap,
-    this.data,
-    this.width,
-    this.fontSize,
-    this.color,
-    this.height,
-    this.txtcolor,
-    this.bordercolor,
-    this.isLoading = false,
-    this.icon,
-    this.icon2,
-    this.borderRadius,
-  });
+  const CustomButton(
+      {super.key,
+      this.onTap,
+      this.data,
+      this.width,
+      this.fontSize,
+      this.color,
+      this.height,
+      this.txtcolor,
+      this.bordercolor,
+      this.isLoading = false,
+      this.icon,
+      this.icon2,
+      this.borderRadius,
+      this.textStyle});
 
   final void Function()? onTap;
   final String? data;
   final double? width;
   final double? height;
   final double? fontSize;
+  final TextStyle? textStyle;
   final Color? color;
   final Color? txtcolor;
   final Color? bordercolor;
@@ -38,7 +39,6 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -68,10 +68,11 @@ class CustomButton extends StatelessWidget {
                   if (icon != null) ...[icon!, SizedBox(width: 8.w)],
                   Text(
                     data ?? "",
-                    style: getBoldStyle(
-                      fontSize: fontSize ?? AppFonts.s16.sp,
-                      color: txtcolor ?? AppColors.white,
-                    ),
+                    style: textStyle ??
+                        getBoldStyle(
+                          fontSize: fontSize ?? AppFonts.s16.sp,
+                          color: txtcolor ?? AppColors.white,
+                        ),
                   ),
                   if (icon2 != null) ...[SizedBox(width: 8.w), icon2!],
                 ],
