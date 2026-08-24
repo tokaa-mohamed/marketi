@@ -44,8 +44,9 @@ class MainPage extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 4.h),
                   child: Assets.icons.homeIcon.svg(
 
-                    color: tabsRouter.activeIndex == 3
+                    color: tabsRouter.activeIndex == 0
                         ? AppColors.primaryColor
+
                         : AppColors.grey,
                     colorBlendMode: BlendMode.srcIn,
                     width: 24.w,

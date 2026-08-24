@@ -6,6 +6,8 @@ import '../../features/home/inner_views/categories/domain/entities/category_enti
 import '../../features/home/inner_views/brands/presentation/pages/brands_page.dart';
 import '../../features/home/inner_views/brands/presentation/pages/brand_products_page.dart';
 import '../../features/home/inner_views/brands/domain/entities/brand_entity.dart';
+import '../../features/home/inner_views/popular_products/presentation/pages/popular_products_page.dart';
+import '../../features/home/inner_views/best_for_you/presentation/pages/best_for_you_page.dart';
 import '../../features/product_details/presentation/pages/product_details_page.dart';
 import '../../features/main/presentation/pages/main_page.dart';
 import '../../features/cart/presentation/pages/cart_page.dart';
@@ -33,6 +35,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: CategoryProductsRoute.page),
     AutoRoute(page: BrandsRoute.page),
     AutoRoute(page: BrandProductsRoute.page),
+    AutoRoute(page: PopularProductsRoute.page),
+    AutoRoute(page: BestForYouRoute.page),
     AutoRoute(page: ProductDetailsRoute.page),
   ];
 }

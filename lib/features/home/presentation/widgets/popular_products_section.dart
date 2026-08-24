@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/routing/app_router.dart';
 import '../../domain/entities/product_entity.dart';
 import 'section_header.dart';
 import 'product_item.dart';
@@ -13,7 +15,12 @@ class PopularProductsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SectionHeader(title: 'Popular Product', onViewAll: () {}),
+        SectionHeader(
+          title: 'Popular Product',
+          onViewAll: () {
+            context.pushRoute(const PopularProductsRoute());
+          },
+        ),
         SizedBox(
           height: 220.h,
           child: ListView.separated(
