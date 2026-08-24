@@ -1,7 +1,17 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../features/home/inner_views/best_for_you/data/data_sources/best_for_you_remote_data_source.dart';
+import '../features/home/inner_views/best_for_you/data/repos/best_for_you_repo_impl.dart';
+import '../features/home/inner_views/best_for_you/domain/repos/best_for_you_repo.dart';
+import '../features/home/inner_views/best_for_you/domain/use_cases/get_best_for_you_use_case.dart';
+import '../features/home/inner_views/best_for_you/presentation/cubit/best_for_you_cubit.dart';
 import '../features/home/inner_views/brands/presentation/cubit/brands_cubit.dart';
 import '../features/home/inner_views/categories/presentation/cubit/categories_cubit.dart';
+import '../features/home/inner_views/popular_products/data/data_sources/popular_products_remote_data_source.dart';
+import '../features/home/inner_views/popular_products/data/repos/popular_products_repo_impl.dart';
+import '../features/home/inner_views/popular_products/domain/repos/popular_products_repo.dart';
+import '../features/home/inner_views/popular_products/domain/use_cases/get_popular_products_use_case.dart';
+import '../features/home/inner_views/popular_products/presentation/cubit/popular_products_cubit.dart';
 import '../features/home/presentation/cubit/home_cubit.dart';
 import '../features/product_details/presentation/cubit/product_details_cubit.dart';
 import 'save data/save_data.dart';
@@ -103,6 +113,40 @@ Future<void> initAppModule() async {
   );
   getIt.registerFactory<BrandsCubit>(
     () => BrandsCubit(getIt(), getIt()),
+  );
+
+  // Popular Products Feature
+  getIt.registerLazySingleton<PopularProductsRemoteDataSource>(
+    () => PopularProductsRemoteDataSourceImpl(),
+  );
+  getIt.registerLazySingleton<PopularProductsRepository>(
+    () => PopularProductsRepositoryImpl(
+      remoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetPopularProductsUseCase>(
+    () => GetPopularProductsUseCase(getIt()),
+  );
+  getIt.registerFactory<PopularProductsCubit>(
+    () => PopularProductsCubit(getIt()),
+  );
+
+  // Best For You Feature
+  getIt.registerLazySingleton<BestForYouRemoteDataSource>(
+    () => BestForYouRemoteDataSourceImpl(),
+  );
+  getIt.registerLazySingleton<BestForYouRepository>(
+    () => BestForYouRepositoryImpl(
+      remoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetBestForYouUseCase>(
+    () => GetBestForYouUseCase(getIt()),
+  );
+  getIt.registerFactory<BestForYouCubit>(
+    () => BestForYouCubit(getIt()),
   );
 
   // Product Details Feature

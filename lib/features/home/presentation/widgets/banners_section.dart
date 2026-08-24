@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/core/utils/app_colors.dart';
 import '../../domain/entities/home_entity.dart';
 
 class BannersSection extends StatelessWidget {
@@ -22,8 +23,8 @@ class BannersSection extends StatelessWidget {
               banners[index].image,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => Container(
-                color: Colors.blue,
-                child: const Center(child: Text('SUPER OFFER', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                color: Colors.grey.shade500,
+                child: const Center(child: Text('NO AVIALABLE OFFERS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               ),
             ),
           ),
