@@ -2,7 +2,7 @@ class FavouritProductsEntities {
   final String name;
   final String main_image;
   final double price;
-  final String rating;
+  final double rating;
 
   FavouritProductsEntities(
       {required this.name,
