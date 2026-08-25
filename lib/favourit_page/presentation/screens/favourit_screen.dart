@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
 
-import 'package:marketi/core/constant/custom_favourit_items.dart';
-import 'package:marketi/core/constant/custom_text_field.dart';
 import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
+import 'package:marketi/favourit_page/presentation/widgets/custom_favourit_items.dart';
+import 'package:marketi/favourit_page/presentation/widgets/custom_text_field.dart';
 
 class FavouritScreen extends StatefulWidget {
   const FavouritScreen({super.key});
