@@ -1,7 +1,4 @@
-import 'dart:ui' hide Size;
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart' hide Size;
 import 'package:flutter_svg/svg.dart';
 
 class Assets {
