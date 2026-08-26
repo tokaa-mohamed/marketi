@@ -5,8 +5,16 @@ import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
 
 class FavouritItemsWidget extends StatelessWidget {
+  final String name;
+  final double price;
+  final double rating;
+  final String mainImage;
   const FavouritItemsWidget({
     super.key,
+    required this.name,
+    required this.price,
+    required this.rating,
+    required this.mainImage,
   });
 
   @override

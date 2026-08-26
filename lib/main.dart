@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/favourit_page/presentation/cubit/favourit_products_cubit.dart';
 import 'package:marketi/favourit_page/presentation/screens/favourit_screen.dart';
 import 'core/di.dart';
 import 'core/bloc observe/bloc_service.dart';
@@ -25,14 +26,21 @@ class MarketiApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Marketi',
-            theme: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-            ),
-            home: FavouritScreen());
+        return MultiBlocProvider(
+            providers: [
+              BlocProvider<FavouritProductsCubit>(
+                create: (context) =>
+                    getIt<FavouritProductsCubit>()..getFavouritProducts(),
+              ),
+            ],
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Marketi',
+                theme: ThemeData(
+                  useMaterial3: true,
+                  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+                ),
+                home: FavouritScreen()));
       },
     );
   }
