@@ -3,7 +3,7 @@ import 'package:marketi/favourit_page/data/models/favourit_products_model.dart';
 
 class FavouritProductsRemoteDataSource {
   Future<List<FavouritProductsModel>> getFavouritProducts() async {
-    final response = await DioHelper.getData(url: "favourits", withAuth: true);
+    final response = await DioHelper.getData(url: "favorites", withAuth: true);
     // استخراج القائمة القادمة في الـ Response
     final List dynamicList = response.data['data'] ?? response.data;
 

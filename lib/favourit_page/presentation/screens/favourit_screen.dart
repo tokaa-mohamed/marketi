@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/cart_page/presentation/screens/cart_screen.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
 import 'package:marketi/core/constant/custom_toast.dart';
@@ -9,8 +10,10 @@ import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
 import 'package:marketi/favourit_page/presentation/cubit/favourit_products_cubit.dart';
 import 'package:marketi/favourit_page/presentation/cubit/favourit_products_states.dart';
+import 'package:marketi/favourit_page/presentation/widgets/custom_bottom_bar.dart';
 import 'package:marketi/favourit_page/presentation/widgets/custom_favourit_items.dart';
 import 'package:marketi/favourit_page/presentation/widgets/custom_text_field.dart';
+import 'package:marketi/favourit_page/presentation/widgets/nav_bottom_bar_icon.dart';
 
 class FavouritScreen extends StatefulWidget {
   const FavouritScreen({super.key});
@@ -88,7 +91,8 @@ class _FavouritScreenState extends State<FavouritScreen> {
             if (state is FailGetFavouritProducts) {
               CustomToast.showWarning(state.message);
             }
-          }))
+          })),
+          CustomBottomBar()
         ],
       ),
     );
