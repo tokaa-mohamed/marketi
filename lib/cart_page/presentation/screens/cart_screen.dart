@@ -33,9 +33,10 @@ class CartScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            SliverToBoxAdapter(child: Container())
           ]),
-        )
+        ),
       ],
     ));
   }
