@@ -99,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
 
                     Center(
-                      child: Assets.images.logo.svg(height: 100.h, width: 100.w),
+                      child: Image.asset('assets/images/Logo_Sign_Up.png', width: 272.w, height: 232.h),
                     ),
                     SizedBox(height: 20.h),
 

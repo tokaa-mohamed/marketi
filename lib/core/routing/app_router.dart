@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:marketi/core/routing/app_router.gr.dart';
 
 
+
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   @override
@@ -10,5 +11,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: OnboardingRoute.page), 
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegisterRoute.page),
+        AutoRoute(page: ForgotPasswordRoute.page),
+        AutoRoute(page: VerifyOtpRoute.page),
+         AutoRoute(page: CreateNewPasswordRoute.page,),
+
+        AutoRoute(page: PasswordSuccessRoute.page,),
       ];
 }

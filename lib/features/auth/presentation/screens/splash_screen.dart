@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:marketi/core/constant/custom_svg_image.dart';
 import 'package:marketi/core/routing/app_router.gr.dart'; 
-import 'package:marketi/generated/assets.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -16,7 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToOnboarding();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigateToOnboarding();
+    });
   }
 
   void _navigateToOnboarding() {
@@ -29,13 +29,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: CustomSvgImage(
-          path: Assets.images.logo.path, 
+        child: SizedBox(
           width: 200,
           height: 200,
+          child: Image.asset(
+        'assets/images/Logo_Splash_Screen.png',
+        width: 200,
+        height: 200,
+        fit: BoxFit.contain,
+      ),
         ),
       ),
     );

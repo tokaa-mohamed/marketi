@@ -4,10 +4,13 @@ import 'package:marketi/features/auth/data/datasources/auth_data_source.dart';
 import 'package:marketi/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:marketi/features/auth/domain/repos/auth_repo.dart';
 import 'package:marketi/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:marketi/features/auth/presentation/cubit/forget_password_cubit.dart';
 import 'save data/save_data.dart';
 import 'security/security_helper.dart';
 import 'api/dio_helper.dart';
 import 'api/internet_connection_checker.dart';
+
+import 'package:flutter/foundation.dart'; 
 
 
 final GetIt getIt = GetIt.instance;
@@ -28,20 +31,24 @@ Future<void> initAppModule() async {
   await DioHelper.init();
   getIt.registerLazySingleton<DioHelper>(() => DioHelper());
 
-  getIt.registerLazySingleton<InternetConnectionChecker>(
-    () => InternetConnectionChecker.createInstance(),
-  );
+if (!kIsWeb) {
+    getIt.registerLazySingleton<InternetConnectionChecker>(
+      () => InternetConnectionChecker.createInstance(),
+    );
+  }
 
   getIt.registerLazySingleton<NetworkInfo>(
-    () => NetworkInfoImpl(getIt<InternetConnectionChecker>()),
+    () => NetworkInfoImpl(
+      kIsWeb ? null : getIt<InternetConnectionChecker>(),
+    ),
   );
-
 
 
 getIt.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(),
   );
 
+  // Repositories
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       remoteDataSource: getIt<AuthRemoteDataSource>(),
@@ -52,4 +59,9 @@ getIt.registerLazySingleton<AuthRemoteDataSource>(
   getIt.registerFactory<AuthCubit>(
     () => AuthCubit(getIt<AuthRepository>()),
   );
-}
+
+  getIt.registerFactory<ForgotPasswordCubit>(
+    () => ForgotPasswordCubit(getIt<AuthRepository>()),
+  );
+  
+  }

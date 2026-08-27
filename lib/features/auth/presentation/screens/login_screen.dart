@@ -100,7 +100,7 @@ class _LoginBodyState extends State<LoginBody> {
                     SizedBox(height: 20.h),
 
                     Center(
-                      child: Assets.images.logo.svg(height: 120.h, width: 120.w),
+                      child: Image.asset('assets/images/Logo_Sign_Up.png', width: 272.w, height: 232.h),
                     ),
                     SizedBox(height: 40.h),
 
@@ -159,7 +159,7 @@ prefixIcon: Assets.icons.passwordIcon.path,
                           ],
                         ),
                         GestureDetector(
-                          // onTap: () => context.router.push(const ForgotPasswordRoute()),
+                           onTap: () => context.router.push(const ForgotPasswordRoute()),
                           child: Text(
                             'Forgot Password?',
                             style: getMediumStyle(
