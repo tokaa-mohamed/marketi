@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/cart_page/presentation/widgets/cart_item_card.dart';
+import 'package:marketi/core/constant/cached_image_widget.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
 import 'package:marketi/core/utils/app_colors.dart';
@@ -34,7 +36,22 @@ class CartScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SliverToBoxAdapter(child: Container())
+            SliverToBoxAdapter(
+                child: CartItemCard(
+              title: "Pampers Swaddlers",
+              subtitle: "84 Diapers",
+              price: "345,00 EGP",
+              imageUrl:
+                  "https://marketi.newcinderella.online/storage/banners/banner-2.jpg",
+              rating: 4.9,
+              quantity:
+                  1, // عند القيمة 1 يظهر زر الحذف سلة القمامة الحمراء تلقائياً
+              isFavorite: false,
+              onIncrement: () {},
+              onDecrement: () {},
+              onDelete: () {},
+              onFavoriteTap: () {},
+            ))
           ]),
         ),
       ],

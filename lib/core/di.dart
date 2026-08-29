@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:marketi/cart_page/domain/usecase/get_cart_products_usecase.dart';
+import 'package:marketi/cart_page/presentation/cubit/cart_page_cubit.dart';
 import 'package:marketi/favourit_page/data/data_source/favourit_products_remote_data_source.dart';
 import 'package:marketi/favourit_page/data/repositories/favourit_products_repository_impl.dart';
 import 'package:marketi/favourit_page/domain/repositories/favourit_products_repositories.dart';
@@ -56,10 +58,14 @@ Future<void> initAppModule() async {
         repositorie: getIt<FavouritProductsRepositories>()),
   );
 
-  // 4. Cubit (هذا هو السطر الذي كان ناقصاً!)
   getIt.registerFactory<FavouritProductsCubit>(
     () => FavouritProductsCubit(
       getIt<GetFavouritProductsUseCase>(),
+    ),
+  );
+  getIt.registerFactory<CartPageCubit>(
+    () => CartPageCubit(
+      getIt<GetCartProductsUsecase>(),
     ),
   );
 }

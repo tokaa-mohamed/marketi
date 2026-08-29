@@ -4,8 +4,7 @@ import 'package:marketi/cart_page/presentation/cubit/cart_page_states.dart';
 
 class CartPageCubit extends Cubit<CartPageStates> {
   final GetCartProductsUsecase getCartProducts;
-  CartPageCubit({required this.getCartProducts})
-      : super(CartPageInitialState());
+  CartPageCubit(this.getCartProducts) : super(CartPageInitialState());
   Future<void> getFavouritProducts() async {
     emit(CartPageLoadingState());
 
