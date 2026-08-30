@@ -7,9 +7,13 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
+  final DioHelper dioHelper;
+
+  HomeRemoteDataSourceImpl(this.dioHelper);
+
   @override
   Future<HomeModel> getHomeData() async {
-    final response = await DioHelper.getData(url: AppConstants.homeEndpoint);
+    final response = await dioHelper.getData(url: AppConstants.homeEndpoint);
     return HomeModel.fromJson(response.data);
   }
 }

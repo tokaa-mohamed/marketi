@@ -7,9 +7,13 @@ abstract class BestForYouRemoteDataSource {
 }
 
 class BestForYouRemoteDataSourceImpl implements BestForYouRemoteDataSource {
+  final DioHelper dioHelper;
+
+  BestForYouRemoteDataSourceImpl(this.dioHelper);
+
   @override
   Future<List<ProductModel>> getBestForYouProducts() async {
-    final response = await DioHelper.getData(url: '${AppConstants.productsEndpoint}/best-for-you');
+    final response = await dioHelper.getData(url: '${AppConstants.productsEndpoint}/best-for-you');
     return (response.data['data']['data'] as List)
         .map((e) => ProductModel.fromJson(e))
         .toList();

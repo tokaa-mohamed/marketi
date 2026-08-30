@@ -1,8 +1,8 @@
 class AppConstants {
   // API Configuration
   static const String baseUrl = 'https://marketi.newcinderella.online/api/v1/';
-  static const String storageUrl =
-      'https://marketi.newcinderella.online/storage/';
+  static const String storageUrl = 'https://marketi.newcinderella.online/storage/';
+  static const String marketiBaseUrl = 'https://marketi.newcinderella.online';
 
   // Auth Endpoints
   static const String registerEndpoint = '/register';
@@ -17,42 +17,43 @@ class AppConstants {
   static const String homeEndpoint = '/home';
   static const String searchEndpoint = '/search';
   static const String categoriesEndpoint = '/categories';
-
   static String categoryProductsEndpoint(int id) => '/categories/$id/products';
   static const String brandsEndpoint = '/brands';
   static const String productsEndpoint = '/products';
-
-  static String productDetailsEndpoint(int id) => '/products/$id';
-
-  static String productRatingsEndpoint(int id) => '/products/$id/ratings';
+  static String productDetailsEndpoint(dynamic id) => '/products/$id';
+  static String productRatingsEndpoint(dynamic id) => '/products/$id/ratings';
+  static const String deliverySlotsEndpoint = '/delivery-slots';
+  static const String faqsEndpoint = '/faqs';
 
   // Cart & Checkout Endpoints
   static const String cartEndpoint = '/cart';
   static const String cartItemsEndpoint = '/cart/items';
-
   static String updateCartItemEndpoint(int id) => '/cart/items/$id';
   static const String ordersEndpoint = '/orders';
+  static String orderDetailsEndpoint(dynamic id) => '/orders/$id';
+  static String cancelOrderEndpoint(dynamic id) => '/orders/$id/cancel';
+  static String retryPaymentEndpoint(dynamic id) => '/orders/$id/payment/retry';
 
-  static String orderDetailsEndpoint(int id) => '/orders/$id';
-
-  static String cancelOrderEndpoint(int id) => '/orders/$id/cancel';
-
-  static String retryPaymentEndpoint(int id) => '/orders/$id/payment/retry';
+  // Payments Endpoints
+  static const String paymentsEndpoint = '/payments';
+  static String paymentDetailsEndpoint(dynamic id) => '/payments/$id';
+  static String paypalSuccessEndpoint(dynamic id) => '/payments/paypal/success/$id';
+  static const String paypalWebhookEndpoint = '/payments/paypal/webhook';
+  static String mockCheckoutEndpoint(dynamic id) => '/payments/mock/$id/checkout';
+  static String mockCompletePaymentEndpoint(dynamic id) => '/payments/mock/$id/complete';
 
   // Profile & Favorites Endpoints
   static const String profileEndpoint = '/profile';
-  static const String changePasswordEndpoint = '/profile/password';
+  static const String profilePasswordEndpoint = '/profile/password';
   static const String favoritesEndpoint = '/favorites';
 
-  // Support & Others
+  // Support & Subscriptions Endpoints
   static const String subscriptionPlansEndpoint = '/subscription-plans';
-  static const String mySubscriptionsEndpoint = '/subscriptions';
+  static const String subscriptionsEndpoint = '/subscriptions';
   static const String supportTicketsEndpoint = '/support/tickets';
   static const String notificationsEndpoint = '/notifications';
-  static const String faqsEndpoint = '/faqs';
-  static const String deliverySlotsEndpoint = '/delivery-slots';
 
-  // Language Constants
+  // Languages
   static const String arabicLangCode = 'ar';
   static const String englishLangCode = 'en';
 
@@ -76,4 +77,7 @@ class AppConstants {
   static const String productAddedToCart = 'تمت إضافة المنتج إلى السلة بنجاح';
   static const String orderPlacedSuccessfully = 'تم تأكيد الطلب بنجاح';
   static const String dataLoadedSuccessfully = 'تم تحميل البيانات بنجاح';
+
+  // Legacy/Temp (If needed by some merged code)
+  static const String KhamnyBaseUrl = baseUrl;
 }

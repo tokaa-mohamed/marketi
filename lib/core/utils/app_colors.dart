@@ -5,6 +5,11 @@ class AppColors {
   static const Color primaryColor = Color(0xFF3F80FF);
   static const Color secondaryColor = Color(0xFF001640);
   static const Color errorColor = Color(0xFFBF0011);
+  static const Color lightBlue = Color(0xFFB2CCFF);
+  static const Color darkgrey = Color(0xFF929BAB);
+  static const Color navy = Color(0xFF51526C);
+
+
 
   // Core Palette
   static const Color white = Color(0xFFFFFFFF);
@@ -14,6 +19,9 @@ class AppColors {
   static const Color greychip = Color(0xFFEFEFF0);
   static const Color darkColor = Color(0xFF313131);
   static const Color borderColor = Color(0xFFE0E0E0);
+  static const Color darkBlue = Color(0xFF001640);
+
+  
 
   // Status Colors
   static const Color successColor = Color(0xFF28A745);
@@ -67,7 +75,6 @@ class AppColors {
   static const Color darkTextSecondaryColor = Color(0xFFB0B0B0);
 
   // Color of border of search textFeild
-  static const Color lightBlue = Color(0xffB2CCFF);
 
   static Color getAdaptiveBorderColor(BuildContext context) {
     return borderColor;

@@ -1,10 +1,13 @@
 import 'package:marketi/core/api/dio_helper.dart';
-
 import '../models/cart_products_model.dart';
 
 class CartProductsRemoteDataSource {
+  final DioHelper dioHelper;
+
+  CartProductsRemoteDataSource(this.dioHelper);
+
   Future<List<CartProductsModel>> getCartProducts() async {
-    final response = await DioHelper.getData(url: "cart", withAuth: true);
+    final response = await dioHelper.getData(url: "cart", withAuth: true);
     // استخراج القائمة القادمة في الـ Response
     final List dynamicList = response.data['data'] ?? response.data;
 

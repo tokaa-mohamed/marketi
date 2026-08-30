@@ -7,9 +7,13 @@ abstract class ProductDetailsRemoteDataSource {
 }
 
 class ProductDetailsRemoteDataSourceImpl implements ProductDetailsRemoteDataSource {
+  final DioHelper dioHelper;
+
+  ProductDetailsRemoteDataSourceImpl(this.dioHelper);
+
   @override
   Future<ProductDetailsModel> getProductDetails(int productId) async {
-    final response = await DioHelper.getData(
+    final response = await dioHelper.getData(
       url: AppConstants.productDetailsEndpoint(productId),
     );
     return ProductDetailsModel.fromJson(response.data);

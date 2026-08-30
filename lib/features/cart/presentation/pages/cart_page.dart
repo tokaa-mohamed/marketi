@@ -1,14 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
 import 'package:marketi/core/constant/custom_button.dart';
+import 'package:marketi/core/routing/app_router.dart';
 import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
 
-import '../../../checkout/presentation/screens/checkout_page.dart';
 import '../widgets/cart_item_card.dart';
 
+@RoutePage()
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
@@ -88,18 +90,13 @@ class CartPage extends StatelessWidget {
                 SizedBox(height: 10.h),
                 CustomButton(
                   data: "Checkout",
-                  textStyle: getMediumStyle(
-                    fontSize: 17.sp,
-                    color: AppColors.white,
-                  ),
+                  fontSize: 17.sp,
+                  txtcolor: AppColors.white,
                   width: 300.w,
                   height: 50.h,
                   color: AppColors.lightBlue100,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CheckoutPage()),
-                    );
+                    context.router.push(const CheckoutRoute());
                   },
                 ),
               ],

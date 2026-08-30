@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi/core/constant/custom_app_bar.dart';
@@ -11,6 +12,7 @@ import '../widgets/location_widget.dart';
 import '../widgets/payment_method_widget.dart';
 import '../widgets/subtotal_widget.dart';
 
+@RoutePage()
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
 
@@ -38,10 +40,8 @@ class CheckoutPage extends StatelessWidget {
                       SizedBox(height: 10.h),
                       CustomButton(
                         data: "Place Order",
-                        textStyle: getMediumStyle(
-                          fontSize: 17.sp,
-                          color: AppColors.white,
-                        ),
+                        fontSize: 17.sp,
+                        txtcolor: AppColors.white,
                         width: 350.w,
                         height: 50.h,
                         color: AppColors.lightBlue100,
@@ -49,7 +49,7 @@ class CheckoutPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CheckoutPage(),
+                              builder: (context) => const CheckoutPage(),
                             ),
                           );
                         },

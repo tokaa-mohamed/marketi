@@ -12,10 +12,11 @@ class CustomCheckBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 25.w,
-        height: 25.h,
+        width: 20.w,
+        height: 20.h,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          borderRadius: BorderRadius.circular(7.r),
+          shape: BoxShape.rectangle,
           border: Border.all(color: AppColors.primaryColor),
           color: check ? AppColors.primaryColor : Colors.transparent,
         ),

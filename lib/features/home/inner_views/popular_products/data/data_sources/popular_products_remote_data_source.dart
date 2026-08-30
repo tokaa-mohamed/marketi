@@ -7,9 +7,13 @@ abstract class PopularProductsRemoteDataSource {
 }
 
 class PopularProductsRemoteDataSourceImpl implements PopularProductsRemoteDataSource {
+  final DioHelper dioHelper;
+
+  PopularProductsRemoteDataSourceImpl(this.dioHelper);
+
   @override
   Future<List<ProductModel>> getPopularProducts() async {
-    final response = await DioHelper.getData(url: '${AppConstants.productsEndpoint}/popular');
+    final response = await dioHelper.getData(url: '${AppConstants.productsEndpoint}/popular');
     return (response.data['data']['data'] as List)
         .map((e) => ProductModel.fromJson(e))
         .toList();

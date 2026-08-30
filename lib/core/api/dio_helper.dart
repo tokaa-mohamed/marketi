@@ -8,18 +8,18 @@ import '../funcations/app_functions.dart';
 import '../security/security_helper.dart';
 
 class DioHelper {
-  static Dio? dio;
+  final Dio dio;
 
-  static Future<void> init() async {
-    dio = Dio(
-      BaseOptions(
-        baseUrl: AppConstants.baseUrl,
-        receiveDataWhenStatusError: true,
-      ),
+  DioHelper(this.dio);
+
+  void setup() {
+    dio.options = BaseOptions(
+      baseUrl: AppConstants.baseUrl,
+      receiveDataWhenStatusError: true,
     );
 
     if (!kReleaseMode) {
-      dio?.interceptors.add(
+      dio.interceptors.add(
         PrettyDioLogger(
           requestHeader: true,
           requestBody: true,
@@ -29,13 +29,13 @@ class DioHelper {
     }
   }
 
-  static Future<void> headers({bool withAuth = false}) async {
+  Future<void> headers({bool withAuth = false}) async {
     final token = getIt<AuthStorage>().token;
     final lang = AppFunctions.getLanguageCode();
     final tokenValue = token?.trim();
     final hasToken = tokenValue != null && tokenValue.isNotEmpty;
 
-    dio!.options.headers = {
+    dio.options.headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'locale': lang,
@@ -43,7 +43,7 @@ class DioHelper {
     };
   }
 
-  static Future<Response> getData({
+  Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
     bool appendAuthParams = false,
@@ -64,10 +64,10 @@ class DioHelper {
       if (query != null) ...query,
     };
 
-    return dio!.get(url, queryParameters: fullQuery.isEmpty ? null : fullQuery);
+    return dio.get(url, queryParameters: fullQuery.isEmpty ? null : fullQuery);
   }
 
-  static Future<Response> postData({
+  Future<Response> postData({
     required String url,
     required dynamic data,
     Map<String, dynamic>? query,
@@ -88,15 +88,15 @@ class DioHelper {
       finalUrl = "$url?access-token=$tokenValue&id=$userIdValue";
     }
 
-    return dio!.post(finalUrl, data: data, queryParameters: query);
+    return dio.post(finalUrl, data: data, queryParameters: query);
   }
 
-  static Future<Response> putData({
+  Future<Response> putData({
     required String url,
     required dynamic data,
     Map<String, dynamic>? query,
   }) async {
-    headers();
+    await headers();
 
     final token = getIt<AuthStorage>().token;
     final userId = getIt<AuthStorage>().userId;
@@ -109,10 +109,10 @@ class DioHelper {
         ? "$url?access-token=$tokenValue&id=$userIdValue"
         : url;
 
-    return dio!.put(finalUrl, data: data, queryParameters: query);
+    return dio.put(finalUrl, data: data, queryParameters: query);
   }
 
-  static Future<Response> putDataWithAuth({
+  Future<Response> putDataWithAuth({
     required String url,
     required dynamic data,
     Map<String, dynamic>? query,
@@ -132,24 +132,24 @@ class DioHelper {
       finalUrl = "$url?access-token=$tokenValue&id=$userIdValue";
     }
 
-    return dio!.put(finalUrl, data: data, queryParameters: query);
+    return dio.put(finalUrl, data: data, queryParameters: query);
   }
 
-  static Future<Response> deleteData({
+  Future<Response> deleteData({
     required String url,
     Map<String, dynamic>? query,
   }) async {
-    headers();
+    await headers();
 
     final token = getIt<AuthStorage>().token ?? '';
     final userId = getIt<AuthStorage>().userId ?? '';
-    return dio!.delete(
+    return dio.delete(
       "$url?access-token=$token&id=$userId",
       queryParameters: query,
     );
   }
 
-  static Future<Response> deleteDataWithAuth({
+  Future<Response> deleteDataWithAuth({
     required String url,
     dynamic data,
     Map<String, dynamic>? query,
@@ -157,31 +157,26 @@ class DioHelper {
   }) async {
     await headers(withAuth: withAuth);
 
-    return dio!.delete(url, data: data, queryParameters: query);
+    return dio.delete(url, data: data, queryParameters: query);
   }
 
-  static Future<Response> patchData({
+  Future<Response> patchData({
     required String url,
     dynamic data,
     Map<String, dynamic>? query,
     bool withAuth = false,
   }) async {
     await headers(withAuth: withAuth);
-    return dio!.patch(url, data: data, queryParameters: query);
+    return dio.patch(url, data: data, queryParameters: query);
   }
 
-  static Future<Response> postMultipartData({
+  Future<Response> postMultipartData({
     required String url,
     required FormData formData,
     bool withAuth = false,
   }) async {
-    final token = getIt<AuthStorage>().token;
+    await headers(withAuth: withAuth);
 
-    dio!.options.headers = {
-      'Accept': 'application/json',
-      if (withAuth && token != null) 'Authorization': 'Bearer $token',
-    };
-
-    return dio!.post(url, data: formData);
+    return dio.post(url, data: formData);
   }
 }

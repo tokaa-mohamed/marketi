@@ -9,9 +9,13 @@ abstract class BrandsRemoteDataSource {
 }
 
 class BrandsRemoteDataSourceImpl implements BrandsRemoteDataSource {
+  final DioHelper dioHelper;
+
+  BrandsRemoteDataSourceImpl(this.dioHelper);
+
   @override
   Future<List<BrandModel>> getBrands() async {
-    final response = await DioHelper.getData(url: AppConstants.brandsEndpoint);
+    final response = await dioHelper.getData(url: AppConstants.brandsEndpoint);
     return (response.data['data'] as List)
         .map((e) => BrandModel.fromJson(e))
         .toList();
@@ -19,7 +23,7 @@ class BrandsRemoteDataSourceImpl implements BrandsRemoteDataSource {
 
   @override
   Future<List<ProductModel>> getBrandProducts(int brandId) async {
-    final response = await DioHelper.getData(
+    final response = await dioHelper.getData(
       url: '${AppConstants.brandsEndpoint}/$brandId/products',
     );
     return (response.data['data']['data'] as List)

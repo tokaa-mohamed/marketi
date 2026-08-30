@@ -9,6 +9,7 @@ class FavouritItemsWidget extends StatelessWidget {
   final double price;
   final double rating;
   final String mainImage;
+
   const FavouritItemsWidget({
     super.key,
     required this.name,
@@ -96,10 +97,10 @@ class FavouritItemsWidget extends StatelessWidget {
                         width: 90.w,
                         color: AppColors.white,
                         bordercolor: AppColors.lightBlue100,
-                        textStyle: getRegularStyle(
-                            fontSize: 11.5.sp, color: AppColors.lightBlue100),
+                        fontSize: 11.5.sp,
+                        txtcolor: AppColors.lightBlue100,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

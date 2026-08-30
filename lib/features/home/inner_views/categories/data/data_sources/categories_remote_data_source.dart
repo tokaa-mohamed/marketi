@@ -9,9 +9,13 @@ abstract class CategoriesRemoteDataSource {
 }
 
 class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
+  final DioHelper dioHelper;
+
+  CategoriesRemoteDataSourceImpl(this.dioHelper);
+
   @override
   Future<List<CategoryModel>> getCategories() async {
-    final response = await DioHelper.getData(url: AppConstants.categoriesEndpoint);
+    final response = await dioHelper.getData(url: AppConstants.categoriesEndpoint);
     return (response.data['data'] as List)
         .map((e) => CategoryModel.fromJson(e))
         .toList();
@@ -19,7 +23,7 @@ class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
 
   @override
   Future<List<ProductModel>> getCategoryProducts(int categoryId) async {
-    final response = await DioHelper.getData(
+    final response = await dioHelper.getData(
       url: AppConstants.categoryProductsEndpoint(categoryId),
     );
     // Based on response, products are under data.data

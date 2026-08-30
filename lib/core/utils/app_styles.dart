@@ -68,8 +68,9 @@ TextStyle getMediumStyle({
   required Color color,
   double? height,
   TextDecoration? decoration,
+  FontWeight? fontWeight,
 }) {
-  return _getTextStyle(fontSize, FontWeight.w600, color, height, decoration);
+  return _getTextStyle(fontSize, fontWeight ?? FontWeight.w600, color, height, decoration);
 }
 
 TextStyle getHighStyle({
