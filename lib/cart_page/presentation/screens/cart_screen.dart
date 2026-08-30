@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi/cart_page/presentation/widgets/cart_item_card.dart';
 import 'package:marketi/checkout_page/presentation/screens/checkout_page.dart';
-import 'package:marketi/core/constant/cached_image_widget.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
 import 'package:marketi/core/constant/custom_button.dart';

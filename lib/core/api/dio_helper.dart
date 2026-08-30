@@ -12,7 +12,7 @@ class DioHelper {
   static Future<void> init() async {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://marketi.newcinderella.online/api/',
+        baseUrl: 'https://marketi.newcinderella.online/api/v1/',
         receiveDataWhenStatusError: true,
       ),
     );

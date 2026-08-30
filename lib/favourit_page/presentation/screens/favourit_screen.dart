@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marketi/cart_page/presentation/screens/cart_screen.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
 import 'package:marketi/core/constant/custom_toast.dart';
