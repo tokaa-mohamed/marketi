@@ -78,7 +78,6 @@ class PasswordSuccessScreen extends StatelessWidget {
                   elevation: 0,
                 ),
                 onPressed: () {
-                  // مسح كل الـ Routes السابقة والانتقال للـ Login مباشرة
                   context.router.replaceAll([const LoginRoute()]);
                 },
                 child: Text(

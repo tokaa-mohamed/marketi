@@ -1,15 +1,42 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/core/notifcation/fcm_service.dart';
+import 'package:marketi/core/notifcation/notification_helper.dart';
 import 'package:marketi/core/routing/app_router.dart';
+import 'package:marketi/core/theme/app_theme.dart';
+import 'package:marketi/core/theme/theme_cubit.dart';
+import 'package:marketi/firebase_options.dart';
 import 'core/di.dart';
 import 'core/bloc observe/bloc_service.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+WidgetsFlutterBinding.ensureInitialized();
   
-  await initAppModule();
-  
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+if (kIsWeb) {
+    await Firebase.initializeApp();
+    //     String? token = await FirebaseMessaging.instance.getToken();
+    // print("FCM Token: $token");
+
+    
+  } else {
+    await Firebase.initializeApp();
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("FCM Token: $token");
+  }
+    await initAppModule();
+final FlutterLocalNotificationsPlugin fln = FlutterLocalNotificationsPlugin();
+  await NotificationHelper.initialize(fln);
+    await FcmService.initialize();
   Bloc.observer = MyBlocObserver();
   
   runApp(const MarketiApp());
@@ -20,23 +47,29 @@ class MarketiApp extends StatelessWidget {
 
   static final _appRouter = AppRouter();
 
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'Marketi',
-          theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+@override
+Widget build(BuildContext context) {
+  return ScreenUtilInit(
+    designSize: const Size(375, 812),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    builder: (context, child) {
+return BlocProvider(
+          create: (context) => getIt<ThemeCubit>(), 
+                    child: BlocBuilder<ThemeCubit, ThemeMode>( 
+            builder: (context, ThemeMode themeMode) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'Marketi',
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: themeMode,
+                routerConfig: _appRouter.config(),
+              );
+            },
           ),
-          routerConfig: _appRouter.config(),
         );
-      },
-    );
-  }
+            },
+  );
+}
 }

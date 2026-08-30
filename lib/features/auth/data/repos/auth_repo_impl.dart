@@ -2,6 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:marketi/core/api/internet_connection_checker.dart';
 import 'package:marketi/core/constant/app_constants.dart';
+import 'package:marketi/core/di.dart';
+import 'package:marketi/core/save%20data/save_data.dart';
+import 'package:marketi/core/security/security_helper.dart';
 import 'package:marketi/features/auth/data/datasources/auth_data_source.dart';
 import 'package:marketi/features/auth/data/model/user_model.dart';
 import 'package:marketi/features/auth/domain/entities/user_entity.dart';
@@ -18,7 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   Future<Either<String, T>> _executeApiCall<T>({
     required Future<Response> Function() apiCall,
-    required T Function(dynamic data) onSuccess,
+    required Future<T> Function(dynamic data) onSuccess,
   }) async {
     bool isConnected = await networkInfo.isConnected;
     if (!isConnected) {
@@ -29,7 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final response = await apiCall();
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return right(onSuccess(response.data));
+        return right(await onSuccess(response.data));
       } else {
         return left(response.data['message'] ?? AppConstants.serverErrorMessage);
       }
@@ -54,7 +57,22 @@ class AuthRepositoryImpl implements AuthRepository {
         identifier: identifier,
         password: password,
       ),
-      onSuccess: (data) => UserModel.fromJson(data),
+      onSuccess: (data) async {
+        final token = data['data']['token'];
+        final userId = data['data']['user']['id']?.toString();
+
+        if (token != null) {
+await getIt<CacheHelper>().saveData(key: 'token', value: token);
+
+          final authStorage = getIt<AuthStorage>();
+          authStorage.token = token;
+          if (userId != null) {
+            authStorage.userId = userId;
+          }
+        }
+
+        return UserModel.fromJson(data['data']['user']);
+      },
     );
   }
 
@@ -78,7 +96,20 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         passwordConfirmation: passwordConfirmation,
       ),
-      onSuccess: (data) => UserModel.fromJson(data),
+      onSuccess: (data) async {
+        final token = data['data']['token'];
+        final userId = data['data']['user']['id']?.toString();
+
+        if (token != null) {
+await getIt<CacheHelper>().saveData(key: 'token', value: token);
+          final authStorage = getIt<AuthStorage>();
+          authStorage.token = token;
+          if (userId != null) {
+            authStorage.userId = userId;
+          }
+        }
+        return UserModel.fromJson(data['data']['user']);
+      },
     );
   }
 
@@ -88,7 +119,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }) {
     return _executeApiCall<String>(
       apiCall: () => remoteDataSource.forgotPassword(phone: phone),
-      onSuccess: (data) => data['message'] ?? 'OTP Sent Successfully',
+      onSuccess: (data) async => data['message'] ?? 'OTP Sent Successfully',
     );
   }
 
@@ -99,7 +130,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }) {
     return _executeApiCall<String>(
       apiCall: () => remoteDataSource.verifyOtp(phone: phone, otp: otp),
-      onSuccess: (data) => data['message'] ?? 'OTP Verified Successfully',
+      onSuccess: (data) async => data['message'] ?? 'OTP Verified Successfully',
     );
   }
 
@@ -115,7 +146,7 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         passwordConfirmation: passwordConfirmation,
       ),
-      onSuccess: (data) => data['message'] ?? 'Password Reset Successfully',
+      onSuccess: (data) async => data['message'] ?? 'Password Reset Successfully',
     );
   }
 }

@@ -13,6 +13,7 @@ import 'package:marketi/core/utils/app_fonts.dart';
 import 'package:marketi/core/utils/app_styles.dart';
 import 'package:marketi/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:marketi/features/auth/presentation/cubit/auth_state.dart';
+import 'package:marketi/features/profile/presentation/widgets/profile_drawer.dart';
 import 'package:marketi/generated/assets.dart';
 
 @RoutePage()
@@ -68,7 +69,7 @@ class _LoginBodyState extends State<LoginBody> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Login Successful!')),
               );
-              // context.router.replace(const HomeRoute());
+context.router.replaceAll([const ProfileRoute()]);
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
