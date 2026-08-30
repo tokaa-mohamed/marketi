@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi/cart_page/presentation/widgets/cart_item_card.dart';
+import 'package:marketi/checkout_page/presentation/screens/checkout_page.dart';
 import 'package:marketi/core/constant/cached_image_widget.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
@@ -84,13 +85,19 @@ class CartScreen extends StatelessWidget {
                 height: 10.h,
               ),
               CustomButton(
-                data: "Checkout",
-                textStyle:
-                    getMediumStyle(fontSize: 17.sp, color: AppColors.white),
-                width: 300.w,
-                height: 50.h,
-                color: AppColors.lightBlue100,
-              ),
+                  data: "Checkout",
+                  textStyle:
+                      getMediumStyle(fontSize: 17.sp, color: AppColors.white),
+                  width: 300.w,
+                  height: 50.h,
+                  color: AppColors.lightBlue100,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CheckoutPage(),
+                        ));
+                  }),
             ],
           ),
         ),

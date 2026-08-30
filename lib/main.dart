@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi/cart_page/presentation/cubit/cart_page_cubit.dart';
+import 'package:marketi/cart_page/presentation/screens/cart_screen.dart';
 import 'package:marketi/favourit_page/presentation/cubit/favourit_products_cubit.dart';
 import 'package:marketi/favourit_page/presentation/screens/favourit_screen.dart';
 import 'core/di.dart';
@@ -45,7 +46,7 @@ class MarketiApp extends StatelessWidget {
                   useMaterial3: true,
                   colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
                 ),
-                home: FavouritScreen()));
+                home: CartScreen()));
       },
     );
   }
