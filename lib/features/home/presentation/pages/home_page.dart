@@ -21,8 +21,9 @@ class HomePage extends StatelessWidget {
           child: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
               if (state is HomeLoading || state is HomeSuccess) {
-                final homeData =
-                    state is HomeSuccess ? state.homeData : HomeDummyData.homeData;
+                final homeData = state is HomeSuccess
+                    ? state.homeData
+                    : HomeDummyData.homeData;
                 return Skeletonizer(
                   enabled: state is HomeLoading,
                   child: RefreshIndicator(
@@ -38,7 +39,8 @@ class HomePage extends StatelessWidget {
                       Text(state.message),
                       const SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () => context.read<HomeCubit>().getHomeData(),
+                        onPressed: () =>
+                            context.read<HomeCubit>().getHomeData(),
                         child: const Text('Retry'),
                       ),
                     ],

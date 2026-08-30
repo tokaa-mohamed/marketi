@@ -1,7 +1,8 @@
 class AppConstants {
   // API Configuration
-  static const String baseUrl = 'https://marketi.newcinderella.online/api/v1';
-  static const String storageUrl = 'https://marketi.newcinderella.online/storage/';
+  static const String baseUrl = 'https://marketi.newcinderella.online/api/v1/';
+  static const String storageUrl =
+      'https://marketi.newcinderella.online/storage/';
 
   // Auth Endpoints
   static const String registerEndpoint = '/register';
@@ -16,19 +17,26 @@ class AppConstants {
   static const String homeEndpoint = '/home';
   static const String searchEndpoint = '/search';
   static const String categoriesEndpoint = '/categories';
+
   static String categoryProductsEndpoint(int id) => '/categories/$id/products';
   static const String brandsEndpoint = '/brands';
   static const String productsEndpoint = '/products';
+
   static String productDetailsEndpoint(int id) => '/products/$id';
+
   static String productRatingsEndpoint(int id) => '/products/$id/ratings';
 
   // Cart & Checkout Endpoints
   static const String cartEndpoint = '/cart';
   static const String cartItemsEndpoint = '/cart/items';
+
   static String updateCartItemEndpoint(int id) => '/cart/items/$id';
   static const String ordersEndpoint = '/orders';
+
   static String orderDetailsEndpoint(int id) => '/orders/$id';
+
   static String cancelOrderEndpoint(int id) => '/orders/$id/cancel';
+
   static String retryPaymentEndpoint(int id) => '/orders/$id/payment/retry';
 
   // Profile & Favorites Endpoints

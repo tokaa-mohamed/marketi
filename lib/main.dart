@@ -7,11 +7,11 @@ import 'core/routing/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await initAppModule();
-  
+
   Bloc.observer = MyBlocObserver();
-  
+
   runApp(const MarketiApp());
 }
 
@@ -32,7 +32,9 @@ class MarketiApp extends StatelessWidget {
           title: 'Marketi',
           theme: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3F80FF)),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFF3F80FF),
+            ),
             fontFamily: 'Poppins',
           ),
         );

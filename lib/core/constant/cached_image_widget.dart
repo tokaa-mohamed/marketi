@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'custom_logo.dart';
 
 class CachedImageWidget extends StatelessWidget {
   const CachedImageWidget({
@@ -81,11 +80,11 @@ class CachedImageWidget extends StatelessWidget {
         borderRadius: borderRadius,
       ),
       child: Center(
-        // child: CustomLogo(
-        //   width: (width ?? 100) * 0.8,
-        //   height: (height ?? 100) * 0.8,
-        // ),
-      ),
+          // child: CustomLogo(
+          //   width: (width ?? 100) * 0.8,
+          //   height: (height ?? 100) * 0.8,
+          // ),
+          ),
     );
   }
 }

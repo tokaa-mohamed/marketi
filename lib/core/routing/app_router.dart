@@ -24,6 +24,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(
       page: MainRoute.page,
       initial: true,
+
       children: [
         AutoRoute(page: HomeRoute.page),
         AutoRoute(page: CartRoute.page),

@@ -25,6 +25,8 @@ class AppColors {
   static const Color textLightColor = Color(0xFF9E9E9E);
   static const Color textOnPrimaryColor = white;
   static const Color textOnSecondaryColor = darkColor;
+  static const Color darkBlueColor = Color(0xff001640);
+  static const Color lightBlue100 = Color(0xff3F80FF);
 
   static const Color dividerColor = lightGrayColor;
   static const Color cardBorderColor = lightGrayColor;
@@ -63,6 +65,9 @@ class AppColors {
   static const Color darkBorderColor = Color(0xFF404040);
   static const Color darkTextPrimaryColor = Color(0xFFFFFFFF);
   static const Color darkTextSecondaryColor = Color(0xFFB0B0B0);
+
+  // Color of border of search textFeild
+  static const Color lightBlue = Color(0xffB2CCFF);
 
   static Color getAdaptiveBorderColor(BuildContext context) {
     return borderColor;

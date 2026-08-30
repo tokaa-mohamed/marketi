@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../features/favorites/data/data_source/favourit_products_remote_data_source.dart';
+import '../features/favorites/data/repositories/favourit_products_repository_impl.dart';
+import '../features/favorites/domain/repositories/favourit_products_repositories.dart';
+import '../features/favorites/domain/usecases/get_favourit_products.dart';
+import '../features/favorites/presentation/cubit/favourit_products_cubit.dart';
 import '../features/home/inner_views/best_for_you/data/data_sources/best_for_you_remote_data_source.dart';
 import '../features/home/inner_views/best_for_you/data/repos/best_for_you_repo_impl.dart';
 import '../features/home/inner_views/best_for_you/domain/repos/best_for_you_repo.dart';
@@ -67,12 +72,15 @@ Future<void> initAppModule() async {
   );
 
   // Home Feature
-  getIt.registerLazySingleton<HomeRemoteDataSource>(() => HomeRemoteDataSourceImpl());
-  getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(
-    remoteDataSource: getIt(),
-    networkInfo: getIt(),
-  ));
-  getIt.registerLazySingleton<GetHomeDataUseCase>(() => GetHomeDataUseCase(getIt()));
+  getIt.registerLazySingleton<HomeRemoteDataSource>(
+    () => HomeRemoteDataSourceImpl(),
+  );
+  getIt.registerLazySingleton<HomeRepository>(
+    () => HomeRepositoryImpl(remoteDataSource: getIt(), networkInfo: getIt()),
+  );
+  getIt.registerLazySingleton<GetHomeDataUseCase>(
+    () => GetHomeDataUseCase(getIt()),
+  );
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 
   // Categories Feature
@@ -100,10 +108,7 @@ Future<void> initAppModule() async {
     () => BrandsRemoteDataSourceImpl(),
   );
   getIt.registerLazySingleton<BrandsRepository>(
-    () => BrandsRepositoryImpl(
-      remoteDataSource: getIt(),
-      networkInfo: getIt(),
-    ),
+    () => BrandsRepositoryImpl(remoteDataSource: getIt(), networkInfo: getIt()),
   );
   getIt.registerLazySingleton<GetBrandsUseCase>(
     () => GetBrandsUseCase(getIt()),
@@ -111,8 +116,23 @@ Future<void> initAppModule() async {
   getIt.registerLazySingleton<GetBrandProductsUseCase>(
     () => GetBrandProductsUseCase(getIt()),
   );
-  getIt.registerFactory<BrandsCubit>(
-    () => BrandsCubit(getIt(), getIt()),
+  getIt.registerFactory<BrandsCubit>(() => BrandsCubit(getIt(), getIt()));
+
+  // Favorite Products Feature
+  getIt.registerLazySingleton<FavouritProductsRemoteDataSource>(
+    () => FavouritProductsRemoteDataSource(),
+  );
+  getIt.registerLazySingleton<FavouritProductsRepositories>(
+    () => FavouritProductsRepositoryImpl(
+      remoteDataSource: getIt(),
+      networkInfo: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetFavouritProductsUseCase>(
+    () => GetFavouritProductsUseCase(repositorie: getIt()),
+  );
+  getIt.registerFactory<FavouritProductsCubit>(
+    () => FavouritProductsCubit(getIt()),
   );
 
   // Popular Products Feature
@@ -145,9 +165,7 @@ Future<void> initAppModule() async {
   getIt.registerLazySingleton<GetBestForYouUseCase>(
     () => GetBestForYouUseCase(getIt()),
   );
-  getIt.registerFactory<BestForYouCubit>(
-    () => BestForYouCubit(getIt()),
-  );
+  getIt.registerFactory<BestForYouCubit>(() => BestForYouCubit(getIt()));
 
   // Product Details Feature
   getIt.registerLazySingleton<ProductDetailsRemoteDataSource>(
