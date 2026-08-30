@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketi/core/di.dart';
 import 'package:marketi/core/routing/app_router.gr.dart';
+import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_state.dart';
 
@@ -56,16 +57,18 @@ class ProfileDrawerScreen extends StatelessWidget {
                               Text(
                                 'Welcome,',
                                 style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 13,
+                                fontWeight: FontWeight.w400,
+
+                                  color: AppColors.navy,
+                                  fontSize: 16,
                                 ),
                               ),
                               Text(
                                 userName,
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w400,
                                   fontSize: 16,
-                                  color: Color(0xFF1B254B),
+                                  color: AppColors.darkBlue,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -153,13 +156,13 @@ class ProfileDrawerScreen extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: const Color(0xFF1B254B), size: 24),
+      leading: Icon(icon, color: AppColors.darkBlue, size: 24),
       title: Text(
         title,
         style: const TextStyle(
-          color: Color(0xFF1B254B),
+          color:AppColors.darkBlue,
           fontWeight: FontWeight.w700,
-          fontSize: 15,
+          fontSize: 18,
         ),
       ),
       onTap: onTap,
