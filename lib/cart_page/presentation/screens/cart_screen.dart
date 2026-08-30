@@ -4,8 +4,10 @@ import 'package:marketi/cart_page/presentation/widgets/cart_item_card.dart';
 import 'package:marketi/core/constant/cached_image_widget.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
+import 'package:marketi/core/constant/custom_button.dart';
 import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
+import 'package:marketi/favourit_page/presentation/widgets/custom_bottom_bar.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -19,7 +21,7 @@ class CartScreen extends StatelessWidget {
         SafeArea(
           child: CustomAppBar(title: "Cart"),
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 10.h),
         Expanded(
           child: CustomScrollView(slivers: [
             SliverToBoxAdapter(
@@ -54,6 +56,45 @@ class CartScreen extends StatelessWidget {
             ))
           ]),
         ),
+        Container(
+          width: double.infinity,
+          height: 107.h,
+          color: AppColors.white,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "Suptotal (3 items)",
+                    style:
+                        getMediumStyle(fontSize: 15.sp, color: AppColors.black),
+                  ),
+                  Text(
+                    "EGP 1,120,00",
+                    style:
+                        getMediumStyle(fontSize: 15.sp, color: AppColors.black),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              CustomButton(
+                data: "Checkout",
+                textStyle:
+                    getMediumStyle(fontSize: 17.sp, color: AppColors.white),
+                width: 300.w,
+                height: 50.h,
+                color: AppColors.lightBlue100,
+              ),
+            ],
+          ),
+        ),
+        CustomBottomBar(),
       ],
     ));
   }
