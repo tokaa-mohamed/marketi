@@ -7,6 +7,8 @@ import '../../../../../../core/di.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../../core/utils/app_fonts.dart';
 import '../../../../../../core/utils/app_styles.dart';
+import '../../../../../cart/presentation/cubit/cart_page_cubit.dart';
+import '../../../../../favorites/presentation/cubit/favourit_products_cubit.dart';
 import '../../../../domain/entities/products_dummy_data.dart';
 import '../../../../presentation/widgets/products_grid_body.dart';
 import '../../domain/entities/brand_entity.dart';
@@ -21,8 +23,15 @@ class BrandProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<BrandsCubit>()..getBrandProducts(brand.id),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<BrandsCubit>()..getBrandProducts(brand.id),
+        ),
+        // CRITICAL: Use .value for singletons
+        BlocProvider.value(value: getIt<FavouritProductsCubit>()..init()),
+        BlocProvider.value(value: getIt<CartPageCubit>()),
+      ],
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
@@ -37,21 +46,29 @@ class BrandProductsPage extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.borderColor),
                 ),
-                child: Icon(Icons.arrow_back_ios_new, size: 18.sp, color: AppColors.secondaryColor),
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 18.sp,
+                  color: AppColors.secondaryColor,
+                ),
               ),
             ),
           ),
           title: Text(
             brand.name,
-            style: getBoldStyle(fontSize: AppFonts.s18.sp, color: AppColors.secondaryColor),
+            style: getBoldStyle(
+              fontSize: AppFonts.s18.sp,
+              color: AppColors.secondaryColor,
+            ),
           ),
           centerTitle: true,
         ),
         body: BlocBuilder<BrandsCubit, BrandsState>(
           builder: (context, state) {
-            if (state is BrandProductsLoading || state is BrandProductsSuccess) {
-              final products = state is BrandProductsSuccess 
-                  ? state.products 
+            if (state is BrandProductsLoading ||
+                state is BrandProductsSuccess) {
+              final products = state is BrandProductsSuccess
+                  ? state.products
                   : ProductsDummyData.products;
               return Skeletonizer(
                 enabled: state is BrandProductsLoading,

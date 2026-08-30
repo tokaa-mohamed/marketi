@@ -1,4 +1,4 @@
-import '../../../../core/constant/app_constants.dart';
+import '../../../../core/utils/url_helper.dart';
 import '../../domain/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {
@@ -17,12 +17,12 @@ class ProductModel extends ProductEntity {
       id: _parseId(json['id']),
       name: json['name']?.toString() ?? '',
       price: _parseNum(json['price']),
-      image: json['main_image_url']?.toString() ?? 
-             (json['main_image'] != null ? '${AppConstants.storageUrl}${json['main_image']}' : ''),
+      image: UrlHelper.getFullImageUrl(
+          json['main_image_url'] ?? json['main_image']),
       rating: _parseNum(json['rating']),
-
       isFavorite: json['is_favorite'] == true || json['is_favorite'] == 1,
-      discount: json['discount'] != null ? _parseNum(json['discount']).toInt() : null,
+      discount:
+          json['discount'] != null ? _parseNum(json['discount']).toInt() : null,
     );
   }
 

@@ -17,3 +17,17 @@ class FailGetFavouritProducts extends FavouritProductsStates {
 
   FailGetFavouritProducts({required this.message});
 }
+
+class AddFavoriteLoadingState extends FavouritProductsStates {}
+
+class AddFavoriteSuccessState extends FavouritProductsStates {
+  final String message;
+
+  AddFavoriteSuccessState({required this.message});
+}
+
+class AddFavoriteErrorState extends FavouritProductsStates {
+  final String message;
+
+  AddFavoriteErrorState({required this.message});
+}

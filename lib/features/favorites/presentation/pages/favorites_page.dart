@@ -4,13 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:marketi/core/constant/custom_app_bar.dart';
-import 'package:marketi/core/constant/custom_toast.dart';
-
 import 'package:marketi/core/routing/app_router.dart';
 import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
 
-import '../../../../core/di.dart';
+import '../../../cart/presentation/cubit/cart_page_cubit.dart';
+import '../../data/models/favourit_products_model.dart';
 import '../cubit/favourit_products_cubit.dart';
 import '../cubit/favourit_products_states.dart';
 import '../widgets/custom_favourit_items.dart';
@@ -24,94 +23,87 @@ class FavoritesPage extends StatefulWidget {
   State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-TextEditingController controller = TextEditingController();
-
 class _FavoritesPageState extends State<FavoritesPage> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FavouritProductsCubit>(
-      create: (context) =>
-          getIt<FavouritProductsCubit>()..getFavouritProducts(),
-
-      child: Scaffold(
-        body: Column(
-          children: [
-            SafeArea(child: CustomAppBar(title: "Favorite")),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 65.h,
-                bottom: 30.h,
-                right: 15.w,
-                left: 15.w,
-              ),
-              child: CustomTextField(controller: controller),
-            ),
-            Expanded(
-              child:
-                  BlocConsumer<FavouritProductsCubit, FavouritProductsStates>(
-                    builder: (context, state) {
-                      if (state is GetFavouritProductsLoadingState) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is GetFavouritPProductsSuccessfulState) {
-                        return CustomScrollView(
-                          slivers: [
-                            SliverToBoxAdapter(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 10.w),
-                                    child: Text(
-                                      "All Products",
-                                      style: getMediumStyle(
-                                        fontSize: 20.w,
-                                        color: AppColors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+    return Scaffold(
+      body: Column(
+        children: [
+          const SafeArea(child: CustomAppBar(title: "Favorite")),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
+            child: CustomTextField(controller: controller),
+          ),
+          Expanded(
+            child: BlocBuilder<FavouritProductsCubit, FavouritProductsStates>(
+              builder: (context, state) {
+                if (state is GetFavouritProductsLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is GetFavouritPProductsSuccessfulState) {
+                  if (state.favouritProducts.isEmpty) {
+                    return const Center(child: Text("No favorites yet"));
+                  }
+                  return CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15.w, bottom: 10.h),
+                          child: Text(
+                            "All Products",
+                            style: getMediumStyle(
+                              fontSize: 18.sp,
+                              color: AppColors.black,
                             ),
-                            SliverPadding(
-                              padding: EdgeInsetsGeometry.symmetric(
-                                horizontal: 15.w,
-                              ),
-                              sliver: SliverGrid(
-                                delegate: SliverChildBuilderDelegate((
-                                  context,
-                                  index,
-                                ) {
-                                  final products =
-                                      state.favouritProducts[index];
-                                  return FavouritItemsWidget(
-                                    name: products.name,
-                                    price: products.price,
-                                    rating: products.rating,
-                                    mainImage: products.main_image,
-                                  );
-                                }, childCount: state.favouritProducts.length),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 12.h,
-                                      crossAxisSpacing: 12.w,
-                                      childAspectRatio: 0.7,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                      return Center(child: CircularProgressIndicator());
-                    },
-                    listener: (context, state) {
-                      if (state is FailGetFavouritProducts) {
-                        CustomToast.showWarning(state.message);
-                      }
-                    },
-                  ),
+                          ),
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w),
+                        sliver: SliverGrid(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              final item = state.favouritProducts[index];
+                              final product = item as FavouritProductsModel;
+                              return FavouritItemsWidget(
+                                name: product.name,
+                                price: product.price,
+                                rating: product.rating,
+                                mainImage: product.main_image,
+                                onAddTap: () {
+                                  context.read<CartPageCubit>().addToCart(
+                                        productId: product.productId,
+                                      );
+                                },
+                              );
+                            },
+                            childCount: state.favouritProducts.length,
+                          ),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 12.h,
+                            crossAxisSpacing: 12.w,
+                            childAspectRatio: 0.7,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return const Center(
+                    child: Text("Start adding your favorite products!"));
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

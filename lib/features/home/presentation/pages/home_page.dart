@@ -7,6 +7,8 @@ import '../../domain/entities/home_dummy_data.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/home_body.dart';
+import '../../../favorites/presentation/cubit/favourit_products_cubit.dart';
+import '../../../cart/presentation/cubit/cart_page_cubit.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -14,8 +16,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<HomeCubit>()..getHomeData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<HomeCubit>()..getHomeData()),
+        // Use .value for singletons to prevent premature closing
+        BlocProvider.value(value: getIt<FavouritProductsCubit>()..init()),
+        BlocProvider.value(value: getIt<CartPageCubit>()),
+      ],
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<HomeCubit, HomeState>(

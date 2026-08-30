@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/core/constant/cached_image_widget.dart';
 import 'package:marketi/core/constant/custom_button.dart';
 import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_styles.dart';
@@ -9,6 +10,7 @@ class FavouritItemsWidget extends StatelessWidget {
   final double price;
   final double rating;
   final String mainImage;
+  final VoidCallback? onAddTap;
 
   const FavouritItemsWidget({
     super.key,
@@ -16,6 +18,7 @@ class FavouritItemsWidget extends StatelessWidget {
     required this.price,
     required this.rating,
     required this.mainImage,
+    this.onAddTap,
   });
 
   @override
@@ -26,7 +29,6 @@ class FavouritItemsWidget extends StatelessWidget {
         width: 160.w,
         height: 220.h,
         child: Container(
-          width: 50,
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(12.r),
@@ -34,21 +36,31 @@ class FavouritItemsWidget extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min, // Takes only the height it needs
+            mainAxisSize: MainAxisSize.min,
             children: [
               // 1. Product Image + Favorite Icon Stack
               Stack(
                 children: [
                   Container(
-                    height: 100.h, // Adjusted proportional height
+                    height: 100.h,
                     decoration: BoxDecoration(
                       color: AppColors.lightBlue,
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(12.r),
                       ),
                     ),
-                    child: const Center(
-                      child: Icon(Icons.image, color: AppColors.grey),
+                    child: Center(
+                      child: mainImage.isNotEmpty
+                          ? CachedImageWidget(
+                              imageUrl: mainImage,
+                              width: double.infinity,
+                              height: 100.h,
+                              fit: BoxFit.cover,
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(12.r),
+                              ),
+                            )
+                          : const Icon(Icons.image, color: AppColors.grey),
                     ),
                   ),
                   Positioned(
@@ -59,7 +71,7 @@ class FavouritItemsWidget extends StatelessWidget {
                       backgroundColor: AppColors.white,
                       child: const Icon(
                         Icons.favorite,
-                        color: AppColors.darkBlueColor,
+                        color: Colors.red,
                         size: 16,
                       ),
                     ),
@@ -74,7 +86,7 @@ class FavouritItemsWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "\$150.00",
+                      "$price LE",
                       style: getRegularStyle(
                         fontSize: 12.sp,
                         color: AppColors.black,
@@ -82,7 +94,7 @@ class FavouritItemsWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      "Product Item",
+                      name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: getRegularStyle(
@@ -90,6 +102,7 @@ class FavouritItemsWidget extends StatelessWidget {
                         color: AppColors.black,
                       ),
                     ),
+                    SizedBox(height: 8.h),
                     Center(
                       child: CustomButton(
                         data: "Add",
@@ -99,6 +112,7 @@ class FavouritItemsWidget extends StatelessWidget {
                         bordercolor: AppColors.lightBlue100,
                         fontSize: 11.5.sp,
                         txtcolor: AppColors.lightBlue100,
+                        onTap: onAddTap,
                       ),
                     ),
                   ],

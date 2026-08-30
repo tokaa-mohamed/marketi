@@ -7,6 +7,8 @@ import '../../../../../../core/di.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../../core/utils/app_fonts.dart';
 import '../../../../../../core/utils/app_styles.dart';
+import '../../../../../cart/presentation/cubit/cart_page_cubit.dart';
+import '../../../../../favorites/presentation/cubit/favourit_products_cubit.dart';
 import '../../../../domain/entities/products_dummy_data.dart';
 import '../../../../presentation/widgets/products_grid_body.dart';
 import '../cubit/best_for_you_cubit.dart';
@@ -18,8 +20,16 @@ class BestForYouPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<BestForYouCubit>()..getBestForYouProducts(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              getIt<BestForYouCubit>()..getBestForYouProducts(),
+        ),
+        // CRITICAL: Use .value for singletons
+        BlocProvider.value(value: getIt<FavouritProductsCubit>()..init()),
+        BlocProvider.value(value: getIt<CartPageCubit>()),
+      ],
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
@@ -34,21 +44,28 @@ class BestForYouPage extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.borderColor),
                 ),
-                child: Icon(Icons.arrow_back_ios_new, size: 18.sp, color: AppColors.secondaryColor),
+                child: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: 18.sp,
+                  color: AppColors.secondaryColor,
+                ),
               ),
             ),
           ),
           title: Text(
             'Best for You',
-            style: getBoldStyle(fontSize: AppFonts.s18.sp, color: AppColors.secondaryColor),
+            style: getBoldStyle(
+              fontSize: AppFonts.s18.sp,
+              color: AppColors.secondaryColor,
+            ),
           ),
           centerTitle: true,
         ),
         body: BlocBuilder<BestForYouCubit, BestForYouState>(
           builder: (context, state) {
             if (state is BestForYouLoading || state is BestForYouSuccess) {
-              final products = state is BestForYouSuccess 
-                  ? state.products 
+              final products = state is BestForYouSuccess
+                  ? state.products
                   : ProductsDummyData.products;
               return Skeletonizer(
                 enabled: state is BestForYouLoading,

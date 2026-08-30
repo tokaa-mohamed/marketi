@@ -7,6 +7,8 @@ import '../../../../../../core/di.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../../core/utils/app_fonts.dart';
 import '../../../../../../core/utils/app_styles.dart';
+import '../../../../../cart/presentation/cubit/cart_page_cubit.dart';
+import '../../../../../favorites/presentation/cubit/favourit_products_cubit.dart';
 import '../cubit/categories_cubit.dart';
 import '../cubit/categories_state.dart';
 import '../widgets/categories_body.dart';
@@ -18,8 +20,12 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<CategoriesCubit>()..getCategories(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<CategoriesCubit>()..getCategories()),
+        BlocProvider.value(value: getIt<FavouritProductsCubit>()..init()),
+        BlocProvider.value(value: getIt<CartPageCubit>()),
+      ],
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
