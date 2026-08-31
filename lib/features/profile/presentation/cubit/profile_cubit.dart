@@ -85,21 +85,24 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  Future<void> createSupportTicket({
-    required String subject,
-    required String message,
-  }) async {
-    emit(ProfileSupportTicketLoading());
-    final result = await profileRepository.createSupportTicket(
-      subject: subject,
-      message: message,
-    );
-    result.fold(
-      (failureMessage) => emit(ProfileError(message: failureMessage)),
-      (_) => emit(ProfileSupportTicketCreated()),
-    );
-  }
+// أضيفي هذه الحالات في ملف profile_state.dart لو مش موجودة:
+// class ProfileSupportTicketLoading extends ProfileState {}
+// class ProfileSupportTicketCreated extends ProfileState {}
 
+Future<void> createSupportTicket({
+  required String subject,
+  required String message,
+}) async {
+  emit(ProfileSupportTicketLoading());
+  final result = await profileRepository.createSupportTicket(
+    subject: subject,
+    message: message,
+  );
+  result.fold(
+    (failureMessage) => emit(ProfileError(message: failureMessage)),
+    (_) => emit(ProfileSupportTicketCreated()),
+  );
+}
   void toggleNotifications(bool value) {
     isNotificationsEnabled = value;
     emit(ProfileSettingsUpdated());

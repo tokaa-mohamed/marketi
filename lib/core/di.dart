@@ -123,9 +123,9 @@ Future<void> initAppModule() async {
       networkInfo: getIt<NetworkInfo>(),
     ),
   );
-  getIt.registerFactory<AuthCubit>(
-    () => AuthCubit(getIt<AuthRepository>()),
-  );
+getIt.registerLazySingleton<AuthCubit>(
+  () => AuthCubit(getIt<AuthRepository>()),
+);
   getIt.registerFactory<ForgotPasswordCubit>(
     () => ForgotPasswordCubit(getIt<AuthRepository>()),
   );

@@ -149,4 +149,11 @@ await getIt<CacheHelper>().saveData(key: 'token', value: token);
       onSuccess: (data) async => data['message'] ?? 'Password Reset Successfully',
     );
   }
+
+
+  @override
+Future<bool> checkUserLoggedIn() async {
+  final token = getIt<CacheHelper>().getData(key: 'token');
+  return token != null && token.toString().isNotEmpty;
+}
 }

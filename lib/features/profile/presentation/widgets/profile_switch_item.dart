@@ -35,7 +35,7 @@ class ProfileSwitchItem extends StatelessWidget {
           title: Text(
             title,
             style: getMediumStyle(
-              color: AppColors.navy,
+              color: AppColors.darkBlue,
               fontSize: AppFonts.s16.sp,
             ),
           ),
