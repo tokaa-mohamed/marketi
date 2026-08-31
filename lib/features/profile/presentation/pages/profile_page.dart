@@ -55,7 +55,15 @@ class ProfilePage extends StatelessWidget {
                     ? Colors.white.withValues(alpha: 0.2) 
                     : AppColors.primaryColor.withValues(alpha: 0.2),
                 borderRadius: 20.r,
-                onTap: () => context.router.maybePop(),
+
+                            onTap: () {
+              if (context.router.canPop()) {
+                context.router.maybePop();
+              } else {
+context.router.replace(const HomeRoute());                
+              }
+            },
+
               ),
             ),
             title: Text(
@@ -204,7 +212,6 @@ iconPath: Assets.icons.creditCardIcon.path,
                   iconColor: isDarkMode ? Colors.white : AppColors.navy,
 
                         title: 'Dark Mode',
-                        
                       
                         value: isDarkMode,
                         onChanged: (val) {

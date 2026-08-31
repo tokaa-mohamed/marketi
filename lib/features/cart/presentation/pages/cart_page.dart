@@ -20,8 +20,39 @@ class CartPage extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 20.h),
-          SafeArea(child: CustomAppBar(title: "Cart")),
-          SizedBox(height: 10.h),
+SafeArea(
+  child: Stack(
+    alignment: Alignment.center,
+    children: [
+      // 1. Title في المنتصف تماماً
+      Text(
+        "Cart",
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          color: AppColors.black,
+        ),
+      ),
+      
+      // 2. السهم على الشمال خالص
+      Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: EdgeInsets.only(left: 8.w),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () {
+              if (context.router.canPop()) {
+                context.router.maybePop();
+              } else {
+                context.router.replace(const HomeRoute());
+              }
+            },
+          ),
+        ),
+      ),
+    ],
+  ),
+),          SizedBox(height: 10.h),
           Expanded(
             child: CustomScrollView(
               slivers: [
@@ -50,7 +81,6 @@ class CartPage extends StatelessWidget {
                         "https://marketi.newcinderella.online/storage/banners/banner-2.jpg",
                     rating: 4.9,
                     quantity: 1,
-                    // عند القيمة 1 يظهر زر الحذف سلة القمامة الحمراء تلقائياً
                     isFavorite: false,
                     onIncrement: () {},
                     onDecrement: () {},

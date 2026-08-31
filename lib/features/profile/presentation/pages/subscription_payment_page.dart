@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi/core/constant/app_constants.dart';
 import 'package:marketi/core/di.dart';
+import 'package:marketi/core/routing/app_router.dart';
 import 'package:marketi/core/utils/app_colors.dart';
 import 'package:marketi/core/utils/app_fonts.dart';
 import 'package:marketi/core/utils/app_styles.dart';
@@ -28,6 +29,16 @@ class SubscriptionAndPaymentPage extends StatelessWidget {
           backgroundColor: AppColors.white,
           elevation: 0,
           iconTheme: const IconThemeData(color: AppColors.navy),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              if (context.router.canPop()) {
+                context.router.maybePop();
+              } else {
+context.router.replace(const HomeRoute());                
+              }
+            },
+          ),
         ),
         body: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {

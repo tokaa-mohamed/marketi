@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marketi/core/di.dart';
+import 'package:marketi/core/routing/app_router.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_state.dart';
 
@@ -30,7 +31,19 @@ class _SupportPageState extends State<SupportPage> {
     return BlocProvider.value(
       value: getIt<ProfileCubit>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Support')),
+        appBar: AppBar(
+          title: const Text('Support'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              if (context.router.canPop()) {
+                context.router.maybePop();
+              } else {
+                context.router.replace(const HomeRoute());
+              }
+            },
+          ),
+        ),
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileSupportTicketCreated) {

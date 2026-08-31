@@ -27,38 +27,103 @@ class ProfileHeaderWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 190.h,
-          width: 320.w,
+          height: 220.h,
+          width: 1.sw,
           child: Stack(
             alignment: Alignment.center,
             children: [
               Transform.rotate(
                 angle: -0.25,
-                
-                child: Container(
-                  width: 290.w,
-                  height: 145.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor.withOpacity(isDarkMode ? 0.15 : 0.25),
-                      width: 1.5,
-                    ),
+                child: SizedBox(
+                  width: 340.w,
+                  height: 170.h,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 340.w,
+                        height: 170.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: primaryColor.withOpacity(isDarkMode ? 0.15 : 0.25),
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 60.h,
+                        left: 80.w,
+                        child: Container(
+                          width: 10.r,
+                          height  : 10.r,
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(isDarkMode ? 0.4 : 0.6),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 60.h,
+                        right: 80.w,
+                        child: Container(
+                          width: 10.r,
+                          height: 10.r,
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(isDarkMode ? 0.4 : 0.6),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
               
               Transform.rotate(
-                angle: 0.2, 
-                child: Container(
-                  width: 250.w,
-                  height: 125.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor.withOpacity(isDarkMode ? 0.1 : 0.15),
-                      width: 1,
-                    ),
+                angle: 0.4, 
+                child: SizedBox(
+                  width: 310.w,
+                  height: 155.h,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 310.w,
+                        height: 155.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: primaryColor.withOpacity(isDarkMode ? 0.1 : 0.15),
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 60.h,
+                        left: 80.w,
+                        child: Container(
+                          width: 9.r,
+                          height: 9.r,
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(isDarkMode ? 0.35 : 0.5),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 60.h,
+                        right: 80.w,
+                        child: Container(
+                          width: 9.r,
+                          height: 9.r,
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(isDarkMode ? 0.35 : 0.5),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

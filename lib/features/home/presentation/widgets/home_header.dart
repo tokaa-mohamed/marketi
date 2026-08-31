@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:marketi/core/routing/app_router.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/app_fonts.dart';
@@ -13,11 +15,16 @@ class HomeHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 20.r,
-            backgroundColor: AppColors.primaryColor,
-            child: Icon(Icons.person, color: AppColors.secondaryColor),
-          ),
+GestureDetector(
+  onTap: () {
+    context.router.push(const ProfileDrawerRoute()); 
+  },
+  child: CircleAvatar(
+    radius: 20.r,
+    backgroundColor: AppColors.primaryColor,
+    child: Icon(Icons.person, color: AppColors.secondaryColor),
+  ),
+),
           SizedBox(width: 10.w),
           Text(
             'Hi User!',
