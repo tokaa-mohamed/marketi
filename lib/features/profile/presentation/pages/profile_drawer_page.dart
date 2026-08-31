@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:marketi/core/di.dart';
 import 'package:marketi/core/routing/app_router.dart';
 import 'package:marketi/core/utils/app_colors.dart';
-import 'package:marketi/core/utils/app_fonts.dart';
-import 'package:marketi/core/utils/app_styles.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_state.dart';
+import 'package:marketi/generated/assets.dart';
 
 @RoutePage()
 class ProfileDrawerPage extends StatelessWidget {
@@ -25,7 +25,7 @@ class ProfileDrawerPage extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
 
-            if (state is ProfileSuccess) {
+            if (state is ProfileLoaded) {
               final user = state.profile;
               return Column(
                 children: [
@@ -53,15 +53,15 @@ class ProfileDrawerPage extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.shopping_bag_outlined),
+                    leading: SvgPicture.asset(Assets.icons.cartIcon.path),
                     title: const Text('My Orders'),
                     onTap: () {
                       Navigator.pop(context);
-                      // context.router.push(const OrdersRoute());
+                      context.router.push(const CartRoute());
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.credit_card_outlined),
+                    leading: SvgPicture.asset(Assets.icons.creditCardIcon.path),
                     title: const Text('Subscription & Payment'),
                     onTap: () {
                       Navigator.pop(context);
@@ -69,7 +69,7 @@ class ProfileDrawerPage extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.settings_outlined),
+                    leading: SvgPicture.asset(Assets.icons.settingIcon.path),
                     title: const Text('Account Preferences'),
                     onTap: () {
                       Navigator.pop(context);
@@ -77,7 +77,7 @@ class ProfileDrawerPage extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.help_outline_rounded),
+                    leading: SvgPicture.asset(Assets.icons.chatIcon.path),
                     title: const Text('Support'),
                     onTap: () {
                       Navigator.pop(context);
@@ -87,7 +87,7 @@ class ProfileDrawerPage extends StatelessWidget {
                   const Spacer(),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.logout_rounded, color: Colors.red),
+                    leading: SvgPicture.asset(Assets.icons.locationIcon.path),
                     title: const Text('Log Out', style: TextStyle(color: Colors.red)),
                     onTap: () {
                       context.read<ProfileCubit>().logout();

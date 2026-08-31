@@ -11,9 +11,12 @@ import 'package:marketi/core/utils/app_fonts.dart';
 import 'package:marketi/core/utils/app_styles.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:marketi/features/profile/presentation/cubit/profile_state.dart';
+import 'package:marketi/features/profile/presentation/widgets/App_rate.dart';
 import 'package:marketi/features/profile/presentation/widgets/header_profile.dart';
 import 'package:marketi/features/profile/presentation/widgets/profile_option_item.dart';
 import 'package:marketi/features/profile/presentation/widgets/profile_switch_item.dart';
+import 'package:marketi/features/profile/presentation/widgets/provide_feedback.dart';
+import 'package:marketi/generated/assets.dart';
 
 @RoutePage()
 class ProfilePage extends StatelessWidget {
@@ -45,8 +48,8 @@ class ProfilePage extends StatelessWidget {
                   size: 18, 
                   color: isDarkMode ? Colors.white : AppColors.primaryColor,
                 ),
-                width: 40.w,
-                height: 40.h,
+                width: 48.w,
+                height: 48.h,
                 color: isDarkMode ? Colors.transparent : AppColors.white,
                 bordercolor: isDarkMode 
                     ? Colors.white.withValues(alpha: 0.2) 
@@ -73,14 +76,14 @@ class ProfilePage extends StatelessWidget {
                       IconButton(
                         icon: Icon(
                           Icons.shopping_cart_outlined,
-                          color: isDarkMode ? Colors.white : AppColors.primaryColor,
+                          color: isDarkMode ? Colors.white : AppColors.darkBlue,
                           size: 24.sp,
                         ),
                         onPressed: () {
                           context.router.push(const CartRoute());
                         },
                       ),
-                      if (cartCount > 0)
+                   //   if (cartCount > 0)
                         Positioned(
                           top: 8.h,
                           right: 8.w,
@@ -98,7 +101,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                     ],
                   );
-                },
+              },
               ),
               SizedBox(width: 8.w),
             ],
@@ -160,7 +163,8 @@ class ProfilePage extends StatelessWidget {
                       ),
                       SizedBox(height: 24.h),
                       ProfileOptionItem(
-                        icon: Icons.person_outline,
+
+iconPath: Assets.icons.userIcon.path,
                           iconColor: isDarkMode ? Colors.white : AppColors.navy,
                           textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
 
@@ -170,7 +174,9 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       ProfileOptionItem(
-                        icon: Icons.credit_card_outlined,
+
+iconPath: Assets.icons.creditCardIcon.path, 
+
                  iconColor: isDarkMode ? Colors.white : AppColors.navy,
                                            textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
 
@@ -195,38 +201,42 @@ class ProfilePage extends StatelessWidget {
                       ProfileSwitchItem(
                         icon: Icons.dark_mode_outlined,
                         
-                                         iconColor: isDarkMode ? Colors.white : AppColors.navy,
+                  iconColor: isDarkMode ? Colors.white : AppColors.navy,
 
                         title: 'Dark Mode',
+                        
+                      
                         value: isDarkMode,
                         onChanged: (val) {
                           context.read<ThemeCubit>().toggleTheme();
                         },
                       ),
-                      ProfileOptionItem(
-                                                  textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
+ProfileOptionItem(
 
-                        icon: Icons.star_border_rounded,
-                      iconColor: isDarkMode ? Colors.white : AppColors.navy,
+iconPath: Assets.icons.rateIcon.path, 
 
-                        title: 'Rate Us',
-                        onTap: () {
-                          cubit.rateApp();
-                        },
-                      ),
-                      ProfileOptionItem(
-                        icon: Icons.chat_bubble_outline_rounded,
-                                                  textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
+  textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
+  iconColor: isDarkMode ? Colors.white : AppColors.navy,
+  title: 'Rate Us',
+  onTap: () {
+    showRateAppBottomSheet(context);
+  },
+),
+ProfileOptionItem(
+iconPath: Assets.icons.feedbackIcon.path, 
 
-                        iconColor: isDarkMode ? Colors.white : AppColors.navy,
-                        title: 'Provide Feedback',
-                        onTap: () {
-                          // Navigate to Feedback
-                        },
-                      ),
+  textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
+  iconColor: isDarkMode ? Colors.white : AppColors.navy,
+  title: 'Provide Feedback',
+  onTap: () {
+    showFeedbackBottomSheet(context);
+
+    
+  },
+),
                       ProfileOptionItem(
-                        icon: Icons.logout_rounded,
-                        
+
+iconPath: Assets.icons.logOutIcon.path, 
                         title: 'Log Out',
                           textColor: isDarkMode ? Colors.white : AppColors.darkBlue,
                         iconColor: Colors.redAccent,

@@ -45,7 +45,6 @@ class ProfileSubscriptionsLoaded extends ProfileState {
 
 // Support Ticket States
 class ProfileSupportTicketLoading extends ProfileState {}
-
 class ProfileSupportTicketCreated extends ProfileState {}
 
 // General Error State

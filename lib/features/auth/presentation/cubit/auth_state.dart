@@ -23,3 +23,8 @@ class RegisterFailure extends AuthState {
   final String errorMessage;
   RegisterFailure(this.errorMessage);
 }
+
+
+class AuthCheckLoading extends AuthState {}
+class UserAuthenticated extends AuthState {}
+class UserUnauthenticated extends AuthState {}

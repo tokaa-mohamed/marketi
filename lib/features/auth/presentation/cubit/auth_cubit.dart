@@ -1,11 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketi/core/di.dart';
+import 'package:marketi/core/save%20data/save_data.dart';
 import 'package:marketi/features/auth/domain/repos/auth_repo.dart';
 import 'package:marketi/features/auth/presentation/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository _authRepository;
 
-  AuthCubit(this._authRepository) : super(AuthInitial());
+  AuthCubit(this._authRepository) : super(AuthInitial()){
+    checkLoginStatus();
+  }
 
   Future<void> login({
     required String identifier,
@@ -58,4 +62,28 @@ class AuthCubit extends Cubit<AuthState> {
       },
     );
   }
+
+Future<void> checkLoginStatus() async {
+  emit(AuthCheckLoading());
+
+  final token = getIt<CacheHelper>().getData(key: 'token');
+  final loginTime = getIt<CacheHelper>().getData(key: 'login_time');
+
+  if (token == null || token.toString().isEmpty || loginTime == null) {
+    emit(UserUnauthenticated());
+    return;
+  }
+
+  final savedDate = DateTime.fromMillisecondsSinceEpoch(loginTime);
+  final difference = DateTime.now().difference(savedDate).inDays;
+
+  if (difference >= 7) {
+    await getIt<CacheHelper>().removeData(key: 'token');
+    await getIt<CacheHelper>().removeData(key: 'login_time');
+    
+    emit(UserUnauthenticated());
+  } else {
+    emit(UserAuthenticated());
+  }
+}
 }
