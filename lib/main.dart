@@ -21,12 +21,12 @@ void main() async {
 
   if (kIsWeb) {
     await Firebase.initializeApp();
-    //     String? token = await FirebaseMessaging.instance.getToken();
-    // print("FCM Token: $token");
   } else {
     await Firebase.initializeApp();
     String? token = await FirebaseMessaging.instance.getToken();
-    print("FCM Token: $token");
+    if (kDebugMode) {
+      print("FCM Token: $token");
+    }
   }
   await initAppModule();
   final FlutterLocalNotificationsPlugin fln = FlutterLocalNotificationsPlugin();

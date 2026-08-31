@@ -9,11 +9,15 @@ import 'product_size_selector.dart';
 
 class ProductDetailsBody extends StatelessWidget {
   final ProductDetailsEntity product;
+  final Function(String) onSizeSelected;
 
-  const ProductDetailsBody({super.key, required this.product});
+  const ProductDetailsBody({
+    super.key,
+    required this.product,
+    required this.onSizeSelected,
+  });
 
   @override
-
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -88,8 +92,10 @@ class ProductDetailsBody extends StatelessWidget {
                     style: getBoldStyle(fontSize: AppFonts.s14.sp, color: AppColors.secondaryColor),
                   ),
                   SizedBox(height: 10.h),
-                  ProductSizeSelector(sizes: product.sizes),
-
+                  ProductSizeSelector(
+                    sizes: product.sizes,
+                    onSizeSelected: onSizeSelected,
+                  ),
                 ],
               ],
             ),

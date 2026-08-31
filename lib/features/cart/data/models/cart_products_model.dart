@@ -1,7 +1,8 @@
+import '../../../../core/utils/url_helper.dart';
 import '../../domain/entities/cart_products_entities.dart';
 
 class CartProductsModel extends CartProductsEntities {
-  final String id;
+  final dynamic id;
   final int rating_count;
   final String slug;
 
@@ -18,16 +19,21 @@ class CartProductsModel extends CartProductsEntities {
   });
 
   factory CartProductsModel.fromJson(Map<String, dynamic> json) {
+    // API might return the product nested under a 'product' key
+    final productData = json['product'] ?? json;
+    
+    final image = UrlHelper.getFullImageUrl(productData['main_image_url'] ?? productData['main_image']);
+
     return CartProductsModel(
-      name: json['name'],
-      main_image: json['main_image'],
-      price: double.tryParse(json['price'].toString()) ?? 0.0,
-      rating: double.tryParse(json['rating'].toString()) ?? 0.0,
       id: json['id'],
-      rating_count: json['rating_count'],
-      slug: json['slug'],
-      stock_quantity: int.tryParse(json['stock_quantity'].toString()) ?? 0,
-      main_image_url: json['main_image_url'],
+      name: productData['name']?.toString() ?? 'Unknown',
+      main_image: image,
+      price: double.tryParse(productData['price']?.toString() ?? '0') ?? 0.0,
+      rating: double.tryParse(productData['rating']?.toString() ?? '0') ?? 0.0,
+      rating_count: productData['rating_count'] ?? 0,
+      slug: productData['slug']?.toString() ?? '',
+      stock_quantity: int.tryParse(productData['stock_quantity']?.toString() ?? '0') ?? 0,
+      main_image_url: UrlHelper.getFullImageUrl(productData['main_image_url']) ?? image,
     );
   }
 

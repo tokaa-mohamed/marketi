@@ -92,7 +92,7 @@ class _SupportPageState extends State<SupportPage> {
                     height: 52,
                     child: BlocBuilder<ProfileCubit, ProfileState>(
                       builder: (context, state) {
-                        final isLoading = state is ProfileLoading;
+                        final isLoading = state is ProfileSupportTicketLoading;
                         return ElevatedButton(
                           onPressed: isLoading
                               ? null

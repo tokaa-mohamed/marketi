@@ -215,7 +215,7 @@ iconPath: Assets.icons.creditCardIcon.path,
                       
                         value: isDarkMode,
                         onChanged: (val) {
-                          context.read<ThemeCubit>().toggleTheme();
+                         // context.read<ThemeCubit>().toggleTheme();
                         },
                       ),
 ProfileOptionItem(

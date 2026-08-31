@@ -58,6 +58,7 @@ import '../features/favorites/data/data_source/favourit_products_remote_data_sou
 import '../features/favorites/data/repositories/favourit_products_repository_impl.dart';
 import '../features/favorites/domain/repositories/favourit_products_repositories.dart';
 import '../features/favorites/domain/usecases/get_favourit_products.dart';
+import '../features/favorites/domain/usecases/add_favorite_usecase.dart';
 import '../features/favorites/presentation/cubit/favourit_products_cubit.dart';
 
 // Cart
@@ -65,6 +66,7 @@ import '../features/cart/data/data_source/data_source_for_cart_products.dart';
 import '../features/cart/data/repositories/cart_products_repository_impl.dart';
 import '../features/cart/domain/repositories/cart_products_repository.dart';
 import '../features/cart/domain/usecase/get_cart_products_usecase.dart';
+import '../features/cart/domain/usecase/add_products_to_cart.dart';
 import '../features/cart/presentation/cubit/cart_page_cubit.dart';
 
 // Profile
@@ -232,8 +234,12 @@ getIt.registerLazySingleton<AuthCubit>(
   getIt.registerLazySingleton<GetFavouritProductsUseCase>(
     () => GetFavouritProductsUseCase(repositorie: getIt<FavouritProductsRepositories>()),
   );
-  getIt.registerFactory<FavouritProductsCubit>(
-    () => FavouritProductsCubit(getIt<GetFavouritProductsUseCase>()),
+  getIt.registerLazySingleton<AddFavoriteUseCase>(
+    () => AddFavoriteUseCase(repository: getIt<FavouritProductsRepositories>()),
+  );
+  getIt.registerLazySingleton<FavouritProductsCubit>(
+    () => FavouritProductsCubit(getIt<GetFavouritProductsUseCase>(),
+        getIt<AddFavoriteUseCase>(), getIt<AuthStorage>(), getIt<CacheHelper>()),
   );
 
   // --- Cart Feature ---
@@ -249,8 +255,11 @@ getIt.registerLazySingleton<AuthCubit>(
   getIt.registerLazySingleton<GetCartProductsUsecase>(
     () => GetCartProductsUsecase(repository: getIt<CartProductsRepository>()),
   );
-  getIt.registerFactory<CartPageCubit>(
-    () => CartPageCubit(getIt<GetCartProductsUsecase>()),
+  getIt.registerLazySingleton<AddProductsToCartUseCase>(
+    () => AddProductsToCartUseCase(repository: getIt<CartProductsRepository>()),
+  );
+  getIt.registerLazySingleton<CartPageCubit>(
+    () => CartPageCubit(getIt<GetCartProductsUsecase>(), getIt<AddProductsToCartUseCase>(), getIt<AuthStorage>()),
   );
 
   // --- Product Details Feature ---

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:marketi/core/api/internet_connection_checker.dart';
+import 'package:marketi/core/errors/error_handler.dart';
 import 'package:marketi/core/errors/failure.dart';
 
 import '../../domain/entities/favourit_products_entities.dart';
@@ -23,16 +23,25 @@ class FavouritProductsRepositoryImpl extends FavouritProductsRepositories {
       try {
         final favouritProducts = await remoteDataSource.getFavouritProducts();
         return Right(favouritProducts);
-      } on DioException catch (e) {
-        final String errorMessage =
-            e.response?.data?['message']?.toString() ??
-            e.message ??
-            'An API error occurred';
-
-        return Left(ApiFailure(message: errorMessage));
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
-      return Left(NoInternetFailure(message: 'No Internet Connection'));
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> addFavorite(int productId) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await remoteDataSource.addFavorite(productId);
+        return Right(response.data['message'] ?? 'Added to favorites');
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
     }
   }
 }

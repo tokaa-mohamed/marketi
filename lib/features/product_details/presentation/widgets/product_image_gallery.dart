@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:marketi/core/constant/cached_image_widget.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../domain/entities/product_details_entity.dart';
 
@@ -43,7 +44,11 @@ class _ProductImageGalleryState extends State<ProductImageGallery> {
               final imageUrl = widget.images[index].image;
               return Center(
                 child: imageUrl.isNotEmpty
-                    ? Image.network(imageUrl, fit: BoxFit.contain)
+                    ? CachedImageWidget(
+                        imageUrl: imageUrl,
+                        fit: BoxFit.contain,
+                        width: double.infinity,
+                      )
                     : Container(
                         width: double.infinity,
                         height: double.infinity,
@@ -108,7 +113,10 @@ class _ProductImageGalleryState extends State<ProductImageGallery> {
                     child: Padding(
                       padding: EdgeInsets.all(4.r),
                       child: imageUrl.isNotEmpty
-                          ? Image.network(imageUrl, fit: BoxFit.contain)
+                          ? CachedImageWidget(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.contain,
+                            )
                           : Container(color: AppColors.grey),
                     ),
                   ),

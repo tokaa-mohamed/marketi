@@ -6,8 +6,13 @@ import '../../domain/entities/product_details_entity.dart';
 
 class ProductSizeSelector extends StatefulWidget {
   final List<ProductSizeEntity> sizes;
+  final Function(String) onSizeSelected;
 
-  const ProductSizeSelector({super.key, required this.sizes});
+  const ProductSizeSelector({
+    super.key,
+    required this.sizes,
+    required this.onSizeSelected,
+  });
 
   @override
   State<ProductSizeSelector> createState() => _ProductSizeSelectorState();
@@ -15,6 +20,17 @@ class ProductSizeSelector extends StatefulWidget {
 
 class _ProductSizeSelectorState extends State<ProductSizeSelector> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.sizes.isNotEmpty) {
+      // Default selection
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onSizeSelected(widget.sizes[_selectedIndex].size);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +47,7 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
               setState(() {
                 _selectedIndex = index;
               });
+              widget.onSizeSelected(widget.sizes[index].size);
             },
             child: Stack(
               clipBehavior: Clip.none,
