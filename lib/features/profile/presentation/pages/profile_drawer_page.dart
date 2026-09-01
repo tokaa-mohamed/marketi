@@ -18,89 +18,105 @@ class ProfileDrawerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: getIt<ProfileCubit>()..fetchUserProfile(),
-      child: Drawer(
-        child: BlocBuilder<ProfileCubit, ProfileState>(
-          builder: (context, state) {
-            if (state is ProfileLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
+      child: SizedBox(
+        width: MediaQuery.sizeOf(context).width * 0.50, 
+        child: Drawer(
+          child: BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            if (state is ProfileLoaded) {
-              final user = state.profile;
-              return Column(
-                children: [
-                  UserAccountsDrawerHeader(
-                    accountName: Text(user.name ?? "User"),
-                    accountEmail: Text(user.email ?? ""),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundImage: user.avatar != null
-                          ? NetworkImage(user.avatar!)
-                          : null,
-                      child: user.avatar == null
-                          ? const Icon(Icons.person)
-                          : null,
+              if (state is ProfileLoaded) {
+                final user = state.profile;
+                return Column(
+                  children: [
+                    Container(
+  padding: EdgeInsets.all(16.w),
+  color: AppColors.greychip,
+  child: Row(
+    children: [
+      CircleAvatar(
+        radius: 30.r,
+        backgroundImage: user.avatar != null
+            ? NetworkImage(user.avatar!)
+            : null,
+        child: user.avatar == null
+            ? const Icon(Icons.person, size: 30)
+            : null,
+      ),
+      SizedBox(width: 16.w),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Welcome",
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            user.name ?? "User",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
+                    ListTile(
+                      leading: const Icon(Icons.person_outline),
+                      title: const Text('My Profile'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.router.push(const ProfileRoute());
+                      },
                     ),
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryColor,
+                    ListTile(
+                      leading: SvgPicture.asset(Assets.icons.cartIcon.path),
+                      title: const Text('My Orders'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.router.push(const CartRoute());
+                      },
                     ),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.person_outline),
-                    title: const Text('My Profile'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.router.push(const ProfileRoute());
-                    },
-                  ),
-                  ListTile(
-                    leading: SvgPicture.asset(Assets.icons.cartIcon.path),
-                    title: const Text('My Orders'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.router.push(const CartRoute());
-                    },
-                  ),
-                  ListTile(
-                    leading: SvgPicture.asset(Assets.icons.creditCardIcon.path),
-                    title: const Text('Subscription & Payment'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.router.push(const SubscriptionAndPaymentRoute());
-                    },
-                  ),
-                  ListTile(
-                    leading: SvgPicture.asset(Assets.icons.settingIcon.path),
-                    title: const Text('Account Preferences'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.router.push(const AccountPreferencesRoute());
-                    },
-                  ),
-                  ListTile(
-                    leading: SvgPicture.asset(Assets.icons.chatIcon.path),
-                    title: const Text('Support'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.router.push(const SupportRoute());
-                    },
-                  ),
-                  const Spacer(),
-                  const Divider(),
-                  ListTile(
-                    leading: SvgPicture.asset(Assets.icons.locationIcon.path),
-                    title: const Text('Log Out', style: TextStyle(color: Colors.red)),
-                    onTap: () {
-                      context.read<ProfileCubit>().logout();
-                      context.router.replaceAll([const LoginRoute()]);
-                    },
-                  ),
-                  SizedBox(height: 20.h),
-                ],
-              );
-            }
+                    ListTile(
+                      leading: SvgPicture.asset(Assets.icons.creditCardIcon.path),
+                      title: const Text('Subscription & Payment'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.router.push(const SubscriptionAndPaymentRoute());
+                      },
+                    ),
+                    ListTile(
+                      leading: SvgPicture.asset(Assets.icons.settingIcon.path),
+                      title: const Text('Account Preferences'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.router.push(const AccountPreferencesRoute());
+                      },
+                    ),
+                    ListTile(
+                      leading: SvgPicture.asset(Assets.icons.chatIcon.path),
+                      title: const Text('Support'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        context.router.push(const SupportRoute());
+                      },
+                    ),
+                  ],
+                );
+              }
 
-            return const Center(child: Text('Failed to load user info'));
-          },
+              return const Center(child: Text('Failed to load user info'));
+            },
+          ),
         ),
       ),
     );

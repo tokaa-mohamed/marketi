@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marketi/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../core/di.dart';
 import '../../domain/entities/home_dummy_data.dart';
@@ -19,9 +20,9 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<HomeCubit>()..getHomeData()),
-        // Use .value for singletons to prevent premature closing
         BlocProvider.value(value: getIt<FavouritProductsCubit>()..init()),
         BlocProvider.value(value: getIt<CartPageCubit>()),
+        BlocProvider(create: (context) => getIt<ProfileCubit>()..fetchUserProfile()),
       ],
       child: Scaffold(
         body: SafeArea(

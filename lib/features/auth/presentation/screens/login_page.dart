@@ -65,7 +65,7 @@ class _LoginBodyState extends State<LoginBody> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Login Successful!')),
               );
-              context.router.replaceAll([const ProfileDrawerRoute()]);
+              context.router.replaceAll([const HomeRoute()]);
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(
                 context,

@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marketi/core/routing/app_router.dart';
+import 'package:marketi/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:marketi/features/profile/presentation/cubit/profile_state.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/app_fonts.dart';
@@ -26,12 +29,21 @@ GestureDetector(
   ),
 ),
           SizedBox(width: 10.w),
-          Text(
-            'Hi User!',
+BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              String userName = "User"; 
+              
+              if (state is ProfileLoaded) {
+                userName = state.profile.name ?? "User";
+              }
 
-            style: getBoldStyle(fontSize: AppFonts.s18.sp, color: AppColors.secondaryColor),
+              return Text(
+                'Hi $userName!',
+                style: getBoldStyle(fontSize: AppFonts.s18.sp, color: AppColors.secondaryColor),
+              );
+            },
           ),
-          const Spacer(),
+                    const Spacer(),
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.notifications_none, color: AppColors.primaryColor, size: 28.sp),
