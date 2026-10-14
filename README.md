@@ -1,4 +1,4 @@
-# 🛒 Marketi (ماركتي) - Advanced E-Commerce Mobile Application
+# 🛒 Marketi  - Advanced E-Commerce Mobile Application
 
 > A feature-rich, scalable, and high-performance cross-platform e-commerce mobile application built with Flutter, leveraging a robust feature-based architecture, Cubit for predictable state management, Dio for network operations, and Auto Route for type-safe navigation.
 
@@ -15,13 +15,13 @@
 
 ---
 
-## 📌 About The Project
+##  About The Project
 
 **Marketi** is a comprehensive e-commerce ecosystem designed to deliver a seamless and native shopping experience. Developed collaboratively by a skilled engineering team, the app handles everything from secure user authentication and dynamic product catalogs to advanced search, cart management, seamless checkout, and profile customization (including Dark Mode support).
 
 ---
 
-## 🏗️ Architecture & Design Patterns
+##  Architecture & Design Patterns
 
 * **Feature-Based Architecture:** The project codebase is strictly modularized by features (e.g., auth, cart, profile, home), ensuring high maintainability, scalability, and clean separation of concerns among team members.
 * **State Management & Networking:** Built using **Cubit** to manage UI states reactively and predictably across all features, paired with **Dio** as the core HTTP client for handling RESTful API requests, interceptors, error handling, and token management efficiently.
@@ -29,7 +29,7 @@
 
 ---
 
-## 🛠️ Tech Stack & Tooling
+##  Tech Stack & Tooling
 
 * **Framework:** Flutter (Dart)
 * **State Management:** Flutter Cubit (Bloc library)
@@ -39,7 +39,7 @@
 
 ---
 
-## 📱 App User Flows & Screens
+##  App User Flows & Screens
 
 The application is structured around intuitive and user-centric flows:
 1. **Onboarding & Authentication:** Splash screen, interactive onboarding slides, secure Sign In, Sign Up, and OTP/Password recovery workflows.
@@ -49,7 +49,7 @@ The application is structured around intuitive and user-centric flows:
 
 ---
 
-## 📁 Project Structure (Feature-Based)
+##  Project Structure (Feature-Based)
 
 ```text
 marketi-app/
